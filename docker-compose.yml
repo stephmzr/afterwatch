@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  db:
+    container_name: afterwatch_db
+    image: mariadb:10.6
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
+    ports:
+      - 3311:3306
+    volumes:
+      - my_application_data:/var/lib/mysql
+    command: mysqld --lower_case_table_names=1 --skip-ssl --innodb-large-prefix=1 --character_set_server=utf8mb4 --sql-mode=""
+
+volumes:
+  my_application_data:

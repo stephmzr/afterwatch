@@ -1,0 +1,12 @@
+image: ruby:3.1.1
+
+include:
+  - project: '9troisquarts/9tq-templates'
+    ref: master
+    file: 'ci/audit.yml'
+  - project: '9troisquarts/9tq-templates'
+    ref: master
+    file: 'ci/code-quality/codeclimate.yml'
+stages:
+  - audit
+  - test

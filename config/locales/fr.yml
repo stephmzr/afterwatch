@@ -1,0 +1,111 @@
+---
+fr:
+  activerecord:
+    attributes:
+      user:
+        current_sign_in_at: Date de dernière connexion
+        edit:
+          title:
+            contact_informations: Informations personnelles
+        email: Email
+        first_name: Prénom
+        full_name: Nom complet
+        last_name: Nom
+        mobile_phone: Téléphone mobile
+        pagination:
+          users_found:
+            one: 1 utilisateur trouvé
+            zero: Aucun utilisateur trouvé
+            other: "%{count} Utilisateurs trouvés"
+        phone: Téléphone fixe
+  flashes:
+    users:
+      create_user:
+        success: Votre compte a été créé avec succès
+      update_user:
+        success: L'utilisateur a bien été mis à jour
+      update_profile:
+        success: Votre profil a été modifié avec succès
+  menu:
+    users: Utilisateurs
+    home: Accueil
+    profile: Mon compte
+    sign_up: Inscription
+  sentences:
+    reset_filters: Réinitialiser les filtres
+    are_you_sure: Êtes-vous sûr ?
+    back_to_list: Retour à la liste
+    edit_password: Modifier mon mot de passe
+    forgotten_password: Mot de passe oublié ?
+    add_user: Ajouter un utilisateur
+    environment_banner: "Vous êtes actuellement sur l'environnement de %{environment}"
+  versions:
+    changes:
+      before_after: "%{attribute} a changé de '%{before}' à '%{after}'."
+      boolean_false: N'est plus %{attribute}
+      boolean_true: Est maintenant %{attribute}
+      permission_granted: "%{attribute} granted."
+      permission_removed: "%{attribute} supprimé."
+      remove: "%{attribute} '%{before}' supprimé."
+      set: "%{attribute} sauvegardé à '%{after}'"
+    events:
+      create: Création
+      destroy: Suppression
+      update: Mise à jour
+  pages:
+    user:
+      index:
+        new_user: Ajouter un utilisateur
+        search_placeholder: Nom, prénom...
+      new:
+        title: Nouvel utilisateur
+      edit:
+        title: Édition de l'utilisateur
+    not_found:
+      message: "La page que vous recherchez n'existe pas"
+    internal_server_error:
+      message: "Internal server error"
+  words:
+    genders:
+      female: Femme
+      male: Homme
+      not_specified: Non spécifié
+    active_m: Actif
+    address: Adresse
+    age: Age
+    birthdate: Date de naissance
+    cancel: Annuler
+    close: Fermer
+    current_password: Mot de passe actuel
+    date: Date
+    delete: Supprimer
+    disabled_m: Désactivé
+    edit: Modifier
+    email: Email
+    'false': Non
+    female: Femme
+    first_name: Prénom
+    last_name: Nom
+    login: Se connecter
+    male: Homme
+    mobile_phone: Numéro de téléphone mobile
+    name: Nom
+    password: Mot de passe
+    password_confirmation: Confirmation du mot de passe
+    phone: Téléphone
+    phone_number: Numéro de téléphone fixe
+    profile: Profil
+    publication: Publication
+    published_f: Publiée
+    reset: Réinitialiser
+    save: Enregistrer
+    search: Rechercher
+    sign_out: Déconnexion
+    sign_up: Inscription
+    sign_up_date: Date d'inscription
+    to: Au
+    to_export: Exporter
+    to_import: Importer
+    to_sign_up: S'inscrire
+    'true': Oui
+    id: ID
