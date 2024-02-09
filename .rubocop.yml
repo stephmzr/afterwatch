@@ -1,0 +1,33 @@
+require: 
+  - rubocop-graphql
+  - rubocop-rails
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'spec/**/*'
+    - 'bin/**/*'
+    - 'tmp/**/*'
+    - 'test/**/*'
+Style/Documentation:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 75
+Layout/LineLength:
+  Max: 200
+Metrics/CyclomaticComplexity:
+  Max: 14
+Metrics/AbcSize:
+  Max: 25
+  CountRepeatedAttributes: false
+Lint/UnusedMethodArgument:
+  Exclude:
+    - 'app/graphql/**/*'
+GraphQL/FieldDescription:
+  Enabled: false
+GraphQL/ObjectDescription:
+  Enabled: false
+GraphQL/ArgumentDescription:
+  Enabled: false

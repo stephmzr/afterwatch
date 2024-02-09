@@ -1,0 +1,10 @@
+tmp/
+cache/
+storage/
+vendor/bundle/
+public/assets/
+public/uploads/
+coverage/
+.idea
+.docker-sync/
+node_modules/

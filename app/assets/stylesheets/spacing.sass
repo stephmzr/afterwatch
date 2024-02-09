@@ -1,0 +1,79 @@
+$bottom-spacings: 10
+$spacings: 0 1 2 3 4 5
+
+@function multiple_mapping($value)
+  @if $value == 0
+    @return 0
+  @if $value == 1
+    @return 0.25
+  @if $value == 2
+    @return 0.5
+  @if $value == 3
+    @return 1
+  @if $value == 4
+    @return 1.5
+  @if $value == 5
+    @return 2
+
+@each $value in $spacings
+  .mt-#{$value}
+    margin-top: #{multiple_mapping($value)}rem !important
+  .mb-#{$value}
+    margin-bottom: #{multiple_mapping($value)}rem !important
+  .mr-#{$value}
+    margin-right: #{multiple_mapping($value)}rem !important
+  .ml-#{$value}
+    margin-left: #{multiple_mapping($value)}rem !important
+
+  .pt-#{$value}
+    padding-top: #{multiple_mapping($value)}rem !important
+  .pb-#{$value}
+    padding-bottom: #{multiple_mapping($value)}rem !important
+  .py-#{$value}
+    padding-top: #{multiple_mapping($value)}rem
+    padding-bottom: #{multiple_mapping($value)}rem
+  .pr-#{$value}
+    padding-right: #{multiple_mapping($value)}rem
+  .pl-#{$value}
+    padding-left: #{multiple_mapping($value)}rem
+    padding-bottom: #{multiple_mapping($value)}rem
+    
+  .m-#{$value}
+    margin: #{multiple_mapping($value)}rem
+  .p-#{$value}
+    padding: #{multiple_mapping($value)}rem
+  .px-#{$value}
+    padding-right: #{multiple_mapping($value)}rem
+    padding-left: #{multiple_mapping($value)}rem
+
+.no-mr
+  margin-right: 0rem !important
+.no-ml
+  margin-left: 0rem !important
+.no-mt
+  margin-top: 0rem !important
+.no-mb
+  margin-bottom: 0rem !important
+
+.no-pt
+  padding-top: 0rem !important
+.no-pl
+  padding-left: 0rem !important
+.no-pr
+  padding-right: 0rem !important
+.no-pb
+  padding-bottom: 0rem !important
+
+.no-padding
+  padding: 0rem !important
+.no-px
+  padding-right: 0rem !important
+  padding-left: 0rem !important
+
+.margin-auto
+  margin-right: auto !important
+  margin-left: auto !important
+.mr-auto
+  margin-right: auto !important
+.ml-auto
+  margin-left: auto !important
