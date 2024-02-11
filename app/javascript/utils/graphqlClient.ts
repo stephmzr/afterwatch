@@ -10,15 +10,13 @@ import {
 } from '@apollo/client';
 import handleNotifications from './handleNotifications';
 import { camelizeKeys } from 'humps';
-import {Authenticity} from "./authenticity";
 
 const isDev = process.env.NODE_ENV === "development";
 
 const authLink = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
-      ...headers,
-      ...Authenticity.headers(),
+      ...headers
     },
   }));
   return forward(operation);

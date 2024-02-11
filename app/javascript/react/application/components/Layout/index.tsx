@@ -1,11 +1,7 @@
 import React from 'react';
-import { Layout as AntdLayout, Menu } from 'antd';
-import styles from './index.module.sass';
-import RightMenu from "../../../shared/components/RightMenu";
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useIntl } from "react-intl";
 import routes from "../../routes";
-import SVG from 'react-inlinesvg';
 import { urlToList } from '../../../../utils/_utils';
 import { USER_FRAGMENT } from '../../../../utils/fragments';
 import { gql, useQuery } from '@apollo/client';
@@ -13,30 +9,31 @@ import { UserType } from '../../../types';
 import flattenRoutes from '../../../../utils/flattenRoutes';
 import { hasRoles } from '../../../../utils/authorization';
 import { UserProvider } from '../../../../utils/providers/UserProvider';
+import { AppBar, Box, Container, ThemeProvider, Toolbar, Typography, createTheme } from '@mui/material';
 
-const {
-  Header,
-  Content,
-  Footer
-} = AntdLayout;
+type LayoutProps = {
+  children: React.ReactNode;
+}
 
-const GET_PROFILE_QUERY = gql`
-  query profile {
-    profile {
-      ...UserInfo
-    }
-  }
-  ${USER_FRAGMENT}
-`;
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#000000', // votre couleur principale
+    },
+    secondary: {
+      main: '#CCCCCC', // votre couleur secondaire
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', // votre police de caractères
+  },
+  // vous pouvez ajouter d'autres personnalisations ici
+});
 
-/*
- * Layout component
- */
-
-type LayoutProps = {}
-
-const Layout: React.FC<LayoutProps> = () => {
-
+const Layout: React.FC<LayoutProps> = props => {
+  const {
+    children
+  } = props;
   /*
    * Hooks
    */
@@ -44,9 +41,6 @@ const Layout: React.FC<LayoutProps> = () => {
   const intl = useIntl()
   const location = useLocation()
   const history = useNavigate()
-
-  const { data, refetch } = useQuery(GET_PROFILE_QUERY)
-  const user: UserType = data?.profile || {}
 
   const onRouteChange = (key) => history(key)
   const pathname = location.pathname;
@@ -59,78 +53,33 @@ const Layout: React.FC<LayoutProps> = () => {
    */
 
   return (
-    <AntdLayout>
-      <UserProvider
-        user={user}
-        refetch={refetch}
-      >
-        <Header className={styles.header}>
-          <div className={styles.headerLeft}>
-            <div>
-              { 'MyApplication' }
-            </div>
-            <Menu
-              selectedKeys={activeKeys}
-              className={styles.menu}
-              style={{ backgroundColor: '#FFF' }}
-              theme="light"
-              mode="horizontal"
-            >
-              { routes.filter(route => !route.hideInMenu && (route.access ? hasRoles(user, route.access) : true)).map(route => {
-                // @ts-ignore
-                const childrenRoutes = (route.children || []).filter(route => !route.hideInMenu).filter(route => !route.access || hasRoles(user, route.access))
-                if (childrenRoutes?.length > 1) {
-                  return (
-                    <Menu.SubMenu key={route.path} title={intl.formatMessage({ id: `menu.${route.name}`})}>
-                      { childrenRoutes.map(route => (
-                        <Menu.Item
-                          key={route.path || route.key}
-                          onClick={() => onRouteChange(route.path)}
-                        >
-                          { intl.formatMessage({ id: `menu.${route.name}`}) }
-                        </Menu.Item>
-                      )) }
-                    </Menu.SubMenu>
-                  )
-                }
-                return (
-                  <Menu.Item
-                    key={route.path}
-                    onClick={() => onRouteChange(childrenRoutes.length > 0 ? childrenRoutes[0].path : route.path)}
-                    icon={route.icon ? <span className='menu-icon'><SVG src={route.icon} /></span> : undefined}
-                  >
-                    { intl.formatMessage({ id: `menu.${childrenRoutes.length > 0 ? childrenRoutes[0].name : route.name}`}) }
-                  </Menu.Item>
-                );
-              }) }
-            </Menu>
-          </div>
-          <div>
-            <RightMenu 
-              logoutUrl='/users/sign_out'
-              theme="light"
-            />
-          </div>
-        </Header>
-        <Content className={styles.contentWrapper}>
-          <Routes>
-            { rts.map(route => {
-              const Component = route.component;
-              return (
-                <Route
-                  key={route.name}
-                  exact
-                  path={route.path}
-                  element={
-                    <Component />
-                  }
-                />
-              )
-            }) }
-          </Routes>
-        </Content>
-      </UserProvider>
-    </AntdLayout>
+    <ThemeProvider theme={theme}>
+      <Box>
+        {/* <UserProvider
+          user={user}
+          refetch={refetch}
+        > */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div">
+                Afterwatch
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Container component="main" sx={{ flexGrow: 1, mt: 2 }}>
+            {children}
+          </Container>
+          <Box component="footer" sx={{ py: 2, mt: 'auto', backgroundColor: 'background.default' }}>
+            <Typography variant="body2" color="text.secondary" align="center">
+              Mon Pied de Page
+            </Typography>
+          </Box>
+        </Box>
+        {/* </UserProvider> */}
+      </Box>
+    </ThemeProvider>
+
   )
 };
 

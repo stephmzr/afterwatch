@@ -48,7 +48,6 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 import { createRoot } from 'react-dom/client';
-import '../assets/stylesheets/antd.less';
 import '../assets/stylesheets/global.sass';
 import Rails from "@rails/ujs";
 import React from 'react';

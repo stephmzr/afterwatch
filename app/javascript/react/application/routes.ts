@@ -1,6 +1,6 @@
 import InternalServerError from "../shared/components/Errors/InternalServerError";
 import NotFound from "../shared/components/Errors/NotFound";
-import UserIndex from "./pages/User/Index";
+import HomePage from "./pages/HomePage";
 
 type Route = {
   path: string;
@@ -16,13 +16,8 @@ const routes: Route[] = [
   {
     path: '/',
     name: 'home',
-    component: UserIndex,
+    component: HomePage,
     hideInMenu: true
-  },
-  {
-    path: '/users',
-    name: 'users',
-    component: UserIndex
   },
   {
     path: '/404',

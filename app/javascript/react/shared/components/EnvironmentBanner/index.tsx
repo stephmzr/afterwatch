@@ -1,4 +1,5 @@
-import { memoOnlyForKeys, useI18n } from '@9troisquarts/wand';
+import useI18n from '@/utils/useI18n';
+import memoOnlyForKeys from '@/utils/memoOnlyForKeys';
 import styled from '@emotion/styled'
 import React from 'react';
 

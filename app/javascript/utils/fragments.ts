@@ -13,30 +13,12 @@ export const USER_FRAGMENT = gql`
   }
 `;
 
-export const PAGINATION_FRAGMENT = gql`
-  fragment Pagination on Pagination {
-    page
-    perPage
-    total
+export const MOVIE_FRAGMENT = gql`
+  fragment MovieInfo on Movie {
+    id
+    title
+    originalLanguage
+    overview
+    releaseDate
   }
-`;
-
-export const VERSION_FRAGMENT = gql`
-  fragment VersionInfo on Version {
-      event
-      createdAt
-      user {
-        ... on User {
-          id
-          firstName
-          lastName
-        }
-        ... on User {
-          id
-          firstName
-          lastName
-        }
-      }
-      changes
-    }
 `;

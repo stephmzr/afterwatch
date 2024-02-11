@@ -20,6 +20,9 @@
     "strictNullChecks": true,
     "noEmit": true
   },
+  "paths": {
+    "@/*": ["./app/javascript/*"]
+  },
   "exclude": [
     "**/*.spec.ts",
     "**/*.spec.js",
