@@ -9,8 +9,8 @@ services:
     ports:
       - 3311:3306
     volumes:
-      - my_application_data:/var/lib/mysql
+      - afterwatch_data:/var/lib/mysql
     command: mysqld --lower_case_table_names=1 --skip-ssl --innodb-large-prefix=1 --character_set_server=utf8mb4 --sql-mode=""
 
 volumes:
-  my_application_data:
+  afterwatch_data:

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-
+# rubocop:disable all
 module Types
   class QueryType < Types::BaseObject
+
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
@@ -49,6 +50,22 @@ module Types
       GetAutocompleteValue.call(model:, label:, value:, search:, limit:).records
     end
 
-    # Fields
+    field :movies, [Types::Movies::MovieType], null: false do
+      argument :language, String, required: false
+      argument :search, InputObject::SearchMoviesAttributes, required: true
+    end
+
+    def movies(language: TmdbApi::Base::BASE_LANGUAGE, search: {})
+      response = TmdbApi::Movie.new.search_movies(search[:query], language)
+      response['results']
+    end
+
+    field :movie, Types::Movies::MovieType, null: true do
+      argument :id, ID, required: true
+    end
+    def movie(id:)
+      response = TmdbApi::Movie.new.get_movie(id)
+      response.parsed_response
+    end
   end
 end

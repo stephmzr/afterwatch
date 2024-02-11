@@ -6,7 +6,7 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module MyApplication
+module Afterwatch
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
@@ -22,7 +22,7 @@ module MyApplication
     config.active_record.yaml_column_permitted_classes = [Symbol]
 
     config.autoload_paths << Rails.root.join('app/lib')
-
+    
     config.i18n.default_locale = :fr
     config.i18n.available_locales = [:fr, :en]
 
