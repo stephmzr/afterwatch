@@ -15,7 +15,7 @@ class GraphqlController < ApplicationController
     context = {
       current_user:
     }
-    result = MyApplicationSchema.execute(query, variables:, context:, operation_name:)
+    result = AfterwatchSchema.execute(query, variables:, context:, operation_name:)
     render json: result
   rescue CanCan::AccessDenied => e # context[:current_user].authorize! raises a CanCan::AccessDenied error when current_user cannot access the requested ressource
     render json: { error: e.message }, status: :forbidden

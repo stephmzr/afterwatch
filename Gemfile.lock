@@ -512,6 +512,7 @@ DEPENDENCIES
   goldiloader
   graphiql-rails
   graphql (< 2)
+  httparty
   image_processing (~> 1.2)
   interactor-rails
   jbuilder (~> 2.7)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MyApplicationSchema < GraphQL::Schema
+class AfterwatchSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 

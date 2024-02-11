@@ -30,17 +30,17 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'annotate'
 gem 'apollo_upload_server', '~> 2.0.0'
+gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'countries', '~> 5.0.1'
 gem 'faker'
 gem 'geocoder'
 gem 'goldiloader'
 gem 'graphql', '<2'
+gem 'httparty'
 gem 'kaminari'
 gem 'ransack'
 gem 'strip_attributes'
-
-gem 'aws-sdk-s3', require: false
-gem 'countries', '~> 5.0.1'
 # Use Redis adapter to run Action Cable in production
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
