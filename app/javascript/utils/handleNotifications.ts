@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { Snackbar } from '@mui/material';
 
 type FlashType = {
   type: 'open' | 'success' | 'warning' | 'error';
@@ -7,7 +7,7 @@ type FlashType = {
 };
 
 const showNotification = (flash: FlashType) => {
-  notification[flash.type || 'open']({
+  Snackbar[flash.type || 'open']({
     message: flash.message,
     description: null,
     placement: 'bottomRight',

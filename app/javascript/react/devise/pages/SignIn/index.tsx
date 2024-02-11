@@ -4,7 +4,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { UserType } from "../../../types";
 import post from "../../../../utils/httpPost";
-import { castAttributesFromDefinition, ModelDefinitionType, useI18n } from '@9troisquarts/wand'
+import { castAttributesFromDefinition, ModelDefinitionType, useI18n } from "../../../../utils/useI18n";
+
 import { useNavigate } from 'react-router-dom'
 import config from '../../../../config';
 import styled from '@emotion/styled'

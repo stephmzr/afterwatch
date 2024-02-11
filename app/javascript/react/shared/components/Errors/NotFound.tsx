@@ -1,4 +1,4 @@
-import { useI18n } from '@9troisquarts/wand';
+import useI18n from '@/utils/useI18n';
 import React from 'react';
 import ErrorPage from './ErrorPage';
 

@@ -3,7 +3,8 @@ import { Card } from "antd";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { UserType } from "../../types";
-import { castAttributesFromDefinition } from '@9troisquarts/wand'
+import { castAttributesFromDefinition } from "../../../../utils/useI18n";
+
 import axiosClient from '../../../utils/axiosClient';
 
 type ResetPasswordProps = {

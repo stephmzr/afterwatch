@@ -25,9 +25,6 @@ export default defineConfig({
     ViteReact(),
   ],
   resolve: {
-    alias: {
-      "@styles": path.resolve(__dirname, "../../app/javascript/assets/stylesheets"),
-      "@images": path.resolve(__dirname, "../../app/javascript/assets/images")
-    }
+    alias: [{ find: '@', replacement: path.resolve(__dirname, 'app/javascript/') }],
   },
 })
