@@ -1,10 +1,8 @@
-import AntForm, { AntSchema, useAntForm } from "@9troisquarts/ant-form";
-import { Button, Card, Col, Row, Space } from "antd";
 import React from "react";
 import { useIntl } from "react-intl";
 import { UserType } from "../../../types";
 import post from "../../../../utils/httpPost";
-import { castAttributesFromDefinition, ModelDefinitionType, useI18n } from "../../../../utils/useI18n";
+import { useI18n } from "@/utils/useI18n";
 
 import { useNavigate } from 'react-router-dom'
 import config from '../../../../config';
@@ -118,7 +116,7 @@ const SignIn: React.FC<SignInProps> = props => {
 
   return (
     <Layout>
-      <Container>
+      {/* <Container>
         <LogoContainer>
           <img src={logo} />
         </LogoContainer>
@@ -156,7 +154,7 @@ const SignIn: React.FC<SignInProps> = props => {
             </Row>
           )}
         </Space>
-      </Container>
+      </Container> */}
     </Layout>
   )
 };

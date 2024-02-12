@@ -14,10 +14,10 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <AppProvider {...props}>
       <AppLayout>
-      <Routes>
-        {flattenRoutes(routes).filter(route => !route.access).map(route => {
+        <Routes>
+          {flattenRoutes(routes).filter(route => !route.access).map(route => {
           const Component = route.component;
-          return (
+            return (
               <Route key={route.name} exact path={route.path} element={<Component />}/>
             )
           })}

@@ -1,9 +1,9 @@
-import { Button, ButtonProps } from '@mui/material';
+import { Button, ButtonProps } from '@material-tailwind/react';
 import React from 'react';
 
 const MuiButton: React.FC<ButtonProps> = (props) => {
   return (
-    <Button color="primary" variant="contained" {...props}>
+    <Button {...props} ref={undefined}>
       {props.children}
     </Button>
   );
