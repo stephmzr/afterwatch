@@ -37,21 +37,10 @@ fr:
     back_to_list: Retour à la liste
     edit_password: Modifier mon mot de passe
     forgotten_password: Mot de passe oublié ?
+    no_movies_found: Aucun film trouvé
     add_user: Ajouter un utilisateur
     environment_banner: "Vous êtes actuellement sur l'environnement de %{environment}"
-  versions:
-    changes:
-      before_after: "%{attribute} a changé de '%{before}' à '%{after}'."
-      boolean_false: N'est plus %{attribute}
-      boolean_true: Est maintenant %{attribute}
-      permission_granted: "%{attribute} granted."
-      permission_removed: "%{attribute} supprimé."
-      remove: "%{attribute} '%{before}' supprimé."
-      set: "%{attribute} sauvegardé à '%{after}'"
-    events:
-      create: Création
-      destroy: Suppression
-      update: Mise à jour
+    search_movie: Rechercher un film
   pages:
     user:
       index:

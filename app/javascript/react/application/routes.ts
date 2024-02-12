@@ -1,6 +1,6 @@
 import InternalServerError from "../shared/components/Errors/InternalServerError";
 import NotFound from "../shared/components/Errors/NotFound";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 
 type Route = {
   path: string;
