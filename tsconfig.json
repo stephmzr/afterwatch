@@ -18,10 +18,11 @@
     "noUnusedLocals": false,
     "allowJs": true,
     "strictNullChecks": true,
-    "noEmit": true
-  },
-  "paths": {
-    "@/*": ["./app/javascript/*"]
+    "noEmit": true,
+    "paths": {
+      "@/*": ["./app/javascript/*"],
+      "@components/*": ["./app/javascript/react/application/components/*"]
+    },
   },
   "exclude": [
     "**/*.spec.ts",
