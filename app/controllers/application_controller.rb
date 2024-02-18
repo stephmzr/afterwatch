@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_whodunnit
   before_action :tag_app_signal
+  skip_forgery_protection
 
   private
 
