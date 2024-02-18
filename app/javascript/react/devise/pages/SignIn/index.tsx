@@ -1,20 +1,19 @@
-import React from "react";
-import { useIntl } from "react-intl";
-import { UserType } from "../../../types";
-import post from "../../../../utils/httpPost";
-import { useI18n } from "@/utils/useI18n";
+import React, { useState } from 'react'
+import { useIntl } from 'react-intl'
+import { type UserType } from '../../../types'
+import post from '../../../../utils/httpPost'
+import useI18n from '@/utils/useI18n'
 
 import { useNavigate } from 'react-router-dom'
-import config from '../../../../config';
 import styled from '@emotion/styled'
-import googleLogo from './images/google-white.png';
-import logo from '../../../../assets/images/logo.svg';
+import { Box, TextField, ThemeProvider, createTheme } from '@mui/material'
+import MuiButton from '../../../application/components/MuiComponents/MuiButton'
 
 const Layout = styled.div`
   display: block;
   text-align: center;
   height: 100vh;
-  background-color: #151412;
+  background-color: #FFFFFF;
 `
 
 const Container = styled.div`
@@ -49,114 +48,98 @@ const GoogleButton = styled.a`
     background-color: lighten(#4688F1, 5%);
     transition: background-color linear 0.1s;
   }
-`;
+`
 
-type SignInProps = {
-  user: UserType;
-  errors: any;
-};
+interface SignInProps {
+  user: UserType
+  errors: any
+}
 
-const env = process.env.NODE_ENV || 'development';
-
-const userDefinition: ModelDefinitionType = {
-  email: 'String',
-  password: 'Password',
-};
-
-type Provider = 'google'
-
-const redirectToSSO = (provider: Provider) => {
-  const providerConfig = config.authentication?.providers[provider].environments[env];
-  window.location.href = `${providerConfig.authUrl}`;
-};
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#7D7D7D'
+    },
+    secondary: {
+      main: '#FFFFFF'
+    }
+  }
+})
 
 const SignIn: React.FC<SignInProps> = props => {
   const {
-    user,
-    errors,
-  } = props;
-  const { t } = useI18n();
+    user
+  } = props
+  const { t } = useI18n()
 
-  const signInUser = (user: UserType) => post('/users/sign_in', {
-    ...user
-  }, "user")
-  const history = useNavigate();
 
-  const onSubmit = () => {
-    signInUser(castAttributesFromDefinition(userDefinition, object));
-  };
+  // Définir l'état local pour les valeurs du formulaire
+  const [formValues, setFormValues] = useState({ email: '', password: '' })
 
-  const { object, onChange } = useAntForm(user || {});
-  const intl = useIntl();
+  // Gérer les changements de valeur des champs du formulaire
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValues({
+      ...formValues,
+      [event.target.id]: event.target.value
+    })
+  }
 
-  const SignInSchema: AntSchema = [
-    {
-      name: 'email',
-      label: intl.formatMessage({ id: 'words.email' }),
-      input: {
-        type: 'string',
-      },
-      colProps: {
-        xs: 24,
-        md: 24,
-      },
-    },
-    {
-      name: 'password',
-      label: intl.formatMessage({ id: 'words.password' }),
-      input: {
-        type: 'password',
-      },
-      colProps: {
-        xs: 24,
-        md: 24,
-      },
-    },
-  ]
+  console.log(formValues)
+  const signInUser = (user: UserType) => {
+    post('/users/sign_in', {
+      ...formValues
+    }, 'user')
+  }
+  const history = useNavigate()
+
+  const onSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+
+    signInUser(formValues) // Utiliser formValues au lieu de user
+  }
 
   return (
-    <Layout>
-      {/* <Container>
-        <LogoContainer>
-          <img src={logo} />
-        </LogoContainer>
-        <Space direction="vertical">
-          {config.authentication?.providers?.email?.enable && (
-            <Row>
-              <AntForm
-                schema={SignInSchema}
-                object={object}
-                layout="vertical"
-                // @ts-ignore
-                onChange={onChange}
-                onSubmit={onSubmit}
-                errors={errors}
-                submitText={intl.formatMessage({ id: 'words.login' })}
-                actionsWrapperProps={{
-                  className: 'ant-form-actions-wrapper'
-                }}
-                extraActions={[
-                  <Button type='link' onClick={() => history('/users/reset_password')}>
-                    {t('sentences.forgotten_password')}
-                  </Button>
-                ]}
-              />
-            </Row>
-          )}
-          {config.authentication?.providers?.google?.enable  && (
-            <Row>
-              <Col xs={24}>
-                <GoogleButton onClick={() => redirectToSSO('google')}>
-                  <img src={googleLogo} />
-                  Sign in with Google
-                </GoogleButton>
-              </Col>
-            </Row>
-          )}
-        </Space>
-      </Container> */}
-    </Layout>
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <Container>
+          <LogoContainer>
+            {/* <img src={logo} /> */}
+          </LogoContainer>
+          <Box
+            component="form"
+            sx={{ m: 2, p: 2, border: '1px solid #000000', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            noValidate
+            autoComplete="off"
+            onSubmit={onSubmit} // Ajouter un gestionnaire d'événement onSubmit
+          >
+            <TextField
+              required
+              id="email"
+              label="Email"
+              value={formValues.email} // Utiliser la valeur de l'état local
+              onChange={handleInputChange} // Ajouter un gestionnaire d'événement onChange
+            />
+            <TextField
+              required
+              id="password"
+              type='password'
+              label="Password"
+              value={formValues.password} // Utiliser la valeur de l'état local
+              onChange={handleInputChange} // Ajouter un gestionnaire d'événement onChange
+            />
+            <MuiButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={onSubmit}
+            >
+              Submit
+            </MuiButton>
+          </Box>
+        </Container>
+      </Layout>
+    </ThemeProvider>
   )
-};
+}
 
-export default SignIn;
+export default SignIn

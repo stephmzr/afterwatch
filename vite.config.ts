@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import path from 'path'
-import Rails from 'vite-plugin-rails';
+import Rails from 'vite-plugin-rails'
 import ViteReact from '@vitejs/plugin-react'
 
 export default defineConfig({
@@ -25,6 +25,9 @@ export default defineConfig({
     ViteReact(),
   ],
   resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, 'app/javascript/') }],
-  },
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, 'app/javascript/') },
+      { find: '@components', replacement: path.resolve(__dirname, 'app/javascript/react/application/components') },
+    ]
+  }
 })

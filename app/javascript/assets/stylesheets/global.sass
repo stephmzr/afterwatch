@@ -44,6 +44,9 @@
 .align-items-center
   align-items: center
 
+.justify-content-center
+  justify-content: center
+
 .ml-auto
   margin-left: auto
 
@@ -52,79 +55,6 @@
 
 .is-underline
   text-decoration: underline
-
-.tabs-card
-  &.ant-tabs-card 
-    .ant-tabs-content > .ant-tabs-tabpane
-      padding: 16px
-      background: #FFF
-      border: 1px solid #f0f0f0
-      border-top: 0
-    .ant-tabs-nav
-      margin-bottom: 0
-      &::before
-        display: none
-
-.qm-ant-modal-footer
-  display: flex
-  .ant-form-actions-wrapper
-    margin-left: auto
-
-.ant-page-header-heading-sub-title
-  align-self: flex-end
-
-.ant-tag
-  border: 0
-  text-transform: uppercase
-  &.ant-tag-blue
-    color: #FFF
-    background-color: #395ba6
-  &.ant-tag-geekblue
-    background-color: #08819b
-    color: #FFF
-  &.ant-tag-ghost
-    background-color: transparent !important
-    &.ant-tag-black
-      color: #313131
-      border: 1px solid #313131
-
-.vertical-divider
-  display: inline-block
-  margin: 0 10px
-  width: 2px
-  height: 16px
-  background: #333
-
-.ant-popover-no-padding
-  .ant-popover-inner-content
-    padding: 0
-
-.outlined-btn
-  background-color: #F2F5F5
-  color: #F79622
-  font-weight: bold
-  border: solid 1px
-  padding: 0px 20px 0px 20px
-  &:hover
-    background-color: #F79622
-    color: #fff
-    border: solid 1px
-    border-color: #F79622
-
-.filled-btn 
-  color: #fff
-  background-color: #F79622
-  border-color: #F79622
-  font-weight: bold
-  padding: 0px 20px 0px 20px
-  &:hover
-    background-color: darken(#F79622, 12)
-    color: #fff
-    border: solid 1px
-    border-color: #F79622
-
-.rounded-btn
-  border-radius: 60px
   
 @import "modules/modal"
 @import "modules/alert"
