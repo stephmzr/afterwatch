@@ -1,5 +1,5 @@
-import { TextField, TextFieldProps } from "@mui/material";
-import React from "react";
+import { TextField, type TextFieldProps } from '@mui/material'
+import React from 'react'
 
 const MuiSearchInput: React.FC<TextFieldProps> = (props) => {
   return (
@@ -9,7 +9,7 @@ const MuiSearchInput: React.FC<TextFieldProps> = (props) => {
     >
       {props.children}
     </TextField>
-  );
+  )
 }
 
-export default MuiSearchInput;
+export default MuiSearchInput

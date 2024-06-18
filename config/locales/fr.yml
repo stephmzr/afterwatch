@@ -42,6 +42,8 @@ fr:
     environment_banner: "Vous êtes actuellement sur l'environnement de %{environment}"
     search_movie: Rechercher un film
   pages:
+    home_page:
+      trending_movies: Les tendances
     user:
       index:
         new_user: Ajouter un utilisateur

@@ -1,37 +1,22 @@
-import React from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { useIntl } from "react-intl";
-import routes from "../../routes";
-import { urlToList } from '../../../../utils/_utils';
-import { USER_FRAGMENT } from '../../../../utils/fragments';
-import { gql, useQuery } from '@apollo/client';
-import { UserType } from '../../../types';
-import flattenRoutes from '../../../../utils/flattenRoutes';
-import { hasRoles } from '../../../../utils/authorization';
-import { UserProvider } from '../../../../utils/providers/UserProvider';
-import { Box, Container, ThemeProvider, createTheme } from '@mui/material';
-import MuiButton from '../MuiComponents/MuiButton';
-import MuiNavbar from '../MuiComponents/MuiNavbar';
+import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useIntl } from 'react-intl'
+import routes from '../../routes'
+import { urlToList } from '../../../../utils/_utils'
+import flattenRoutes from '../../../../utils/flattenRoutes'
+import { hasRoles } from '../../../../utils/authorization'
+import { Box, Container, ThemeProvider } from '@mui/material'
+import MuiNavbar from '../MuiComponents/MuiNavbar'
+import { theme } from '@/utils/theme'
 
-type LayoutProps = {
-  children: React.ReactNode;
+interface LayoutProps {
+  children: React.ReactNode
 }
-
-let theme = createTheme({
-  palette: {
-    primary: {
-      main: '#7D7D7D',
-    },
-    secondary: {
-      main: '#FFFFFF',
-    },
-  },
-});
 
 const Layout: React.FC<LayoutProps> = props => {
   const {
     children
-  } = props;
+  } = props
   /*
    * Hooks
    */
@@ -40,15 +25,11 @@ const Layout: React.FC<LayoutProps> = props => {
   const location = useLocation()
   const history = useNavigate()
 
-  const onRouteChange = (key) => history(key)
-  const pathname = location.pathname;
+  const onRouteChange = (key) => { history(key) }
+  const pathname = location.pathname
   const activeKeys = urlToList(pathname)
-  
-  const rts = flattenRoutes(routes).filter(r => r.component).filter(route => route.access ? hasRoles(user, route.access) : true)
 
-  /*
-   * Render
-   */
+  const rts = flattenRoutes(routes).filter(r => r.component).filter(route => route.access ? hasRoles(user, route.access) : true)
 
   return (
     <ThemeProvider theme={theme}>
@@ -58,13 +39,11 @@ const Layout: React.FC<LayoutProps> = props => {
         > */}
         <MuiNavbar/>
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-          <Container component="main" sx={{ flexGrow: 1, mt: 2 }}>
-            {children}
-          </Container>
+          {children}
         </Box>
         {/* </UserProvider> */}
     </ThemeProvider>
   )
-};
+}
 
-export default Layout;
+export default Layout
