@@ -1,10 +1,11 @@
-import React from "react";
-import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import React from 'react'
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
+import GlobalSearch from '../../pages/HomePage/components/GlobalSearch'
 
-const MuiNavbar = () => {
+const MuiNavbar = (): JSX.Element => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color='primary'>
+      <AppBar position="static" sx={{ backgroundColor: 'black' }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -20,6 +21,7 @@ const MuiNavbar = () => {
         </Toolbar>
       </AppBar>
     </Box>
-  )}
+  )
+}
 
-  export default MuiNavbar;
+export default MuiNavbar

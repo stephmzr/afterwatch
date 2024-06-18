@@ -10,7 +10,7 @@ const MovieImage: React.FC<MovieImageProps> = (props) => {
   const { imageUrl, title } = props
 
   return (
-    <img src={`${imageBaseUrl}/${imageUrl}`} alt={title} style={{ height: '80px' }} />
+    <img src={`${imageBaseUrl}/${imageUrl}`} alt={title} style={{ height: '84px', borderRadius: '6px' }} />
   )
 }
 

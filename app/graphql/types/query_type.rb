@@ -53,11 +53,12 @@ module Types
     field :movies, [Types::Movies::MovieType], null: false do
       argument :language, String, required: false
       argument :search, InputObject::SearchMoviesAttributes, required: true
+      argument :per_page, Int, required: false
     end
 
-    def movies(language: TmdbApi::Base::BASE_LANGUAGE, search: {})
+    def movies(language: TmdbApi::Base::BASE_LANGUAGE, search: {}, per_page: 5)
       response = TmdbApi::Movie.new.search_movies(search[:query], language)
-      response['results']
+      response['results'].first(per_page)
     end
 
     field :movie, Types::Movies::MovieType, null: true do
