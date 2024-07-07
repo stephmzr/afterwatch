@@ -38,10 +38,25 @@ export interface VersionType {
   user: UserType
 }
 
-export interface MovieType {
+// Define a base interface for shared properties
+export interface BaseMediaType {
   id: ID
   title: string
   overview: string
   releaseDate: Date
   posterPath: string
+  MediaType: string
 }
+
+// Extend the base interface for specific media types
+export interface MovieType extends BaseMediaType {
+  // Movie-specific properties can be added here
+}
+
+export interface SerieType extends BaseMediaType {
+  // Serie-specific properties can be added here, for example:
+  episodesCount: number
+}
+
+// Union type for flexibility
+export type MediaType = MovieType | SerieType

@@ -22,3 +22,13 @@ export const MOVIE_FRAGMENT = gql`
     releaseDate
   }
 `;
+
+export const TV_SHOW_FRAGMENT = gql`
+  fragment TvShowInfo on TvShow {
+    id
+    name
+    originalLanguage
+    overview
+    releaseDate
+  }
+`;

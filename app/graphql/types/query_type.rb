@@ -34,20 +34,19 @@ module Types
       argument :id, ID, required: true
     end
 
-    field :autocomplete, [Types::AutocompleteOption], null: true do
-      argument :label, String, required: true
-      argument :limit, Integer, required: false
-      argument :model, String, required: true
-      argument :search, String, required: false
-      argument :value, String, required: true
-    end
-
     def profile
       context[:current_user]
     end
 
-    def autocomplete(model:, label:, value:, search: nil, limit: 0)
-      GetAutocompleteValue.call(model:, label:, value:, search:, limit:).records
+    field :medias, [Types::Medias::MediaType], null: false do
+      argument :language, String, required: false
+      argument :search, InputObject::SearchMediasAttributes, required: true
+      argument :per_page, Int, required: false
+    end
+
+    def medias(language: TmdbApi::Base::BASE_LANGUAGE, search: {}, per_page: 5)
+      response = TmdbApi::Media.new.search_multi(search[:query], language)
+      response['results'].first(per_page)
     end
 
     field :movies, [Types::Movies::MovieType], null: false do
