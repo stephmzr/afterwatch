@@ -3,19 +3,27 @@ import MuiSearchInput from '@components/MuiComponents/MuiSearchInput'
 import React, { useState } from 'react'
 import { gql, useLazyQuery } from '@apollo/client'
 import useI18n from '@/utils/useI18n'
-import { type MovieType } from '@/react/types'
-import MovieImage from '../../../components/MovieImage'
+import { type MediaType } from '@/react/types'
 import './GlobalSearch.sass'
 import MuiAutocomplete from '@components/MuiComponents/MuiAutocomplete'
 import { useNavigate } from 'react-router-dom'
+import MediaImage from '../../../components/MediaImage'
 
-const SEARCH_MOVIES = gql`
-  query movies($search: SearchMoviesAttributes!, $perPage: Int) {
-    movies(search: $search, perPage: $perPage) {
-      id
-      title
-      overview
-      posterPath
+const SEARCH_MEDIAS = gql`
+  query medias($search: SearchMediasAttributes!, $perPage: Int) {
+    medias(search: $search, perPage: $perPage) {
+      ... on Movie {
+        id  
+        title: title
+        posterPath
+        
+      }
+      ... on TvShow {
+        id
+        title: name
+        posterPath
+      }
+
     }
   }
 `
@@ -23,18 +31,20 @@ const SEARCH_MOVIES = gql`
 const GlobalSearch = (): JSX.Element => {
   const { t } = useI18n()
   const history = useNavigate()
-  const [getMovies, { data }] = useLazyQuery(SEARCH_MOVIES)
+  const [getMedias, { data }] = useLazyQuery(SEARCH_MEDIAS)
   const [open, setOpen] = useState<boolean>(false)
 
   const handleInputChange = (event, newInputValue): void => {
-    getMovies({ variables: { search: { query: newInputValue } } })
+    getMedias({ variables: { search: { query: newInputValue } } })
   }
 
-  const movieOptions = data?.movies.map((movie: MovieType) => ({
-    label: movie.title,
-    value: movie.id,
-    posterPath: movie.posterPath
+  const mediaOptions = data?.medias.map((media: MediaType) => ({
+    label: media.title,
+    value: media.id,
+    posterPath: media.posterPath
   }))
+
+  console.log(mediaOptions)
 
   return (
     <>
@@ -43,8 +53,8 @@ const GlobalSearch = (): JSX.Element => {
         <MuiAutocomplete
           classes={{ root: 'global-search-input', listbox: 'listbox-search-input' }}
           disablePortal
-          id="search-movie"
-          options={movieOptions ?? []}
+          id="search-media"
+          options={mediaOptions ?? []}
           open={open}
           onInputChange={(_, value) => {
             // Prevents the dropdown from opening when no value is present yet
@@ -63,11 +73,11 @@ const GlobalSearch = (): JSX.Element => {
               label={t('sentences.search_movie')}
             />
           )}
-          renderOption={(props, option: Partial<MovieType> & { label?: string, value?: string }) => (
-            <Box className='movie-item' onClick={() => { history(`/movies/${option.value}`) }} component="li" sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
-              <MovieImage imageUrl={option?.posterPath} title={option.title} />
+          renderOption={(props, option: Partial<MediaType> & { label?: string, value?: string }) => (
+            <Box className='media-item' onClick={() => { history(`/movies/${option.value}`) }} component="li" sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
+              <MediaImage imageUrl={option?.posterPath} title={option.title} />
               <Typography variant="subtitle1" component="div" className='is-bold' style={{ marginLeft: 8 }}>
-                {option.label}
+                {option.label ?? ''}
               </Typography>
             </Box>
           )}

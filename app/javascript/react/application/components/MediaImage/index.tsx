@@ -1,12 +1,12 @@
 import React from 'react'
 import { imageBaseUrl } from '@/utils/imageBaseUrl'
 
-interface MovieImageProps {
+interface MediaImageProps {
   imageUrl?: string
   title?: string
 }
 
-const MovieImage: React.FC<MovieImageProps> = (props) => {
+const MediaImage: React.FC<MediaImageProps> = (props) => {
   const { imageUrl, title } = props
 
   return (
@@ -14,4 +14,4 @@ const MovieImage: React.FC<MovieImageProps> = (props) => {
   )
 }
 
-export default MovieImage
+export default MediaImage
