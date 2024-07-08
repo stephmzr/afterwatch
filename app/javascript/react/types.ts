@@ -50,13 +50,13 @@ export interface BaseMediaType {
 
 // Extend the base interface for specific media types
 export interface MovieType extends BaseMediaType {
+  type: string
   // Movie-specific properties can be added here
 }
 
-export interface SerieType extends BaseMediaType {
-  // Serie-specific properties can be added here, for example:
-  episodesCount: number
+export interface TvShowType extends BaseMediaType {
+  type: string
 }
 
 // Union type for flexibility
-export type MediaType = MovieType | SerieType
+export type MediaType = MovieType | TvShowType

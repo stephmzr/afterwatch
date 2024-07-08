@@ -16,14 +16,12 @@ const SEARCH_MEDIAS = gql`
         id  
         title: title
         posterPath
-        
       }
-      ... on TvShow {
+      ... on Tv {
         id
         title: name
         posterPath
       }
-
     }
   }
 `
@@ -38,14 +36,13 @@ const GlobalSearch = (): JSX.Element => {
     getMedias({ variables: { search: { query: newInputValue } } })
   }
 
-  const mediaOptions = data?.medias.map((media: MediaType) => ({
+  const mediaOptions = data?.medias.map((media: MediaType & { __typename: string }) => ({
     label: media.title,
     value: media.id,
-    posterPath: media.posterPath
+    posterPath: media.posterPath,
+    type: media.__typename
   }))
-
   console.log(mediaOptions)
-
   return (
     <>
       <Backdrop open={open} style={{ color: '#fff', zIndex: 1 }} />
@@ -74,8 +71,8 @@ const GlobalSearch = (): JSX.Element => {
             />
           )}
           renderOption={(props, option: Partial<MediaType> & { label?: string, value?: string }) => (
-            <Box className='media-item' onClick={() => { history(`/movies/${option.value}`) }} component="li" sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
-              <MediaImage imageUrl={option?.posterPath} title={option.title} />
+            <Box className='media-item' onClick={() => { history(`/medias/${option.type?.toLocaleLowerCase()}/${option.value}`) }} component="li" sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
+              <MediaImage imageUrl={option?.posterPath} title={option.title} height='84px' />
               <Typography variant="subtitle1" component="div" className='is-bold' style={{ marginLeft: 8 }}>
                 {option.label ?? ''}
               </Typography>
