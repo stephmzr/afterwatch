@@ -49,6 +49,18 @@ module Types
       response['results'].first(per_page)
     end
 
+    field :media, Types::Medias::MediaType, null: true do
+      argument :id, ID, required: true
+      argument :type, String, required: true
+    end
+    def media(id:, type:)
+      response = TmdbApi::Media.new.get(id, type)
+      p type
+      # Add media_type to the response to be able to determine the type of media
+      response['media_type'] = type
+      response.parsed_response
+    end
+
     field :movies, [Types::Movies::MovieType], null: false do
       argument :language, String, required: false
       argument :search, InputObject::SearchMoviesAttributes, required: true
@@ -64,7 +76,7 @@ module Types
       argument :id, ID, required: true
     end
     def movie(id:)
-      response = TmdbApi::Movie.new.get_movie(id)
+      response = TmdbApi::Movie.new.get(id)
       response.parsed_response
     end
   end
