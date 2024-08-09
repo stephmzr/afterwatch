@@ -8,6 +8,7 @@ import './GlobalSearch.sass'
 import MuiAutocomplete from '@components/MuiComponents/MuiAutocomplete'
 import { useNavigate } from 'react-router-dom'
 import MediaImage from '../../../components/MediaImage'
+import dayjs from '@/utils/dayjs'
 
 const SEARCH_MEDIAS = gql`
   query medias($search: SearchMediasAttributes!, $perPage: Int) {
@@ -16,11 +17,13 @@ const SEARCH_MEDIAS = gql`
         id  
         title: title
         posterPath
+        releaseDate
       }
       ... on Tv {
         id
         title: name
         posterPath
+        releaseDate: firstAirDate
       }
     }
   }
@@ -40,6 +43,7 @@ const GlobalSearch = (): JSX.Element => {
     label: media.title,
     value: media.id,
     posterPath: media.posterPath,
+    releaseDate: media.releaseDate,
     type: media.__typename
   }))
   console.log(mediaOptions)
@@ -74,7 +78,7 @@ const GlobalSearch = (): JSX.Element => {
             <Box className='media-item' onClick={() => { history(`/medias/${option.type?.toLocaleLowerCase()}/${option.value}`) }} component="li" sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
               <MediaImage imageUrl={option?.posterPath} title={option.title} height='84px' />
               <Typography variant="subtitle1" component="div" className='is-bold' style={{ marginLeft: 8 }}>
-                {option.label ?? ''}
+                {option.label ?? ''} ({dayjs(option?.releaseDate, 'DD/MM/YYYY').year()})
               </Typography>
             </Box>
           )}

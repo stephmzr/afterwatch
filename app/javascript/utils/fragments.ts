@@ -20,15 +20,17 @@ export const MOVIE_FRAGMENT = gql`
     originalLanguage
     overview
     releaseDate
+    posterPath
   }
 `;
 
 export const TV_SHOW_FRAGMENT = gql`
-  fragment TvShowInfo on TvShow {
+  fragment TvShowInfo on Tv {
     id
-    name
+    title: name
     originalLanguage
     overview
-    releaseDate
+    releaseDate: firstAirDate
+    posterPath
   }
 `;

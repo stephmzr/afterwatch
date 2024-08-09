@@ -45,13 +45,22 @@ export interface BaseMediaType {
   overview: string
   releaseDate: Date
   posterPath: string
-  MediaType: string
+  originalLanguage: string
+  mediaType: string
+  genres: GenreType[]
+  runtime: number
+  tagline: string
+  voteAverage: number
+}
+
+export interface GenreType {
+  id: ID
+  name: string
 }
 
 // Extend the base interface for specific media types
 export interface MovieType extends BaseMediaType {
   type: string
-  // Movie-specific properties can be added here
 }
 
 export interface TvShowType extends BaseMediaType {

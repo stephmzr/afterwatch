@@ -10,7 +10,7 @@ interface MediaImageProps {
 
 const MediaImage: React.FC<MediaImageProps> = (props) => {
   const { imageUrl, title, height, width } = props
-
+  console.log(props)
   return (
     <img src={`${imageBaseUrl}/${imageUrl}`} alt={title} style={{ height, width, borderRadius: '6px' }} />
   )

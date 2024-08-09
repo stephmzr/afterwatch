@@ -1,8 +1,9 @@
 import React from 'react'
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
-import GlobalSearch from '../../pages/HomePage/components/GlobalSearch'
+import { useNavigate } from 'react-router-dom'
 
 const MuiNavbar = (): JSX.Element => {
+  const history = useNavigate()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: 'black' }}>
@@ -16,7 +17,7 @@ const MuiNavbar = (): JSX.Element => {
           >
           </IconButton>
           <Typography color='secondary' variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Afterwatch
+            <a onClick={() => { history('/') }}>Afterwatch</a>
           </Typography>
         </Toolbar>
       </AppBar>

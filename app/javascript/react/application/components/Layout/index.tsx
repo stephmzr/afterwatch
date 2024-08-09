@@ -5,7 +5,7 @@ import routes from '../../routes'
 import { urlToList } from '../../../../utils/_utils'
 import flattenRoutes from '../../../../utils/flattenRoutes'
 import { hasRoles } from '../../../../utils/authorization'
-import { Box, Container, ThemeProvider } from '@mui/material'
+import { Box, ThemeProvider } from '@mui/material'
 import MuiNavbar from '../MuiComponents/MuiNavbar'
 import { theme } from '@/utils/theme'
 

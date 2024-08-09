@@ -1,5 +1,10 @@
 module Types
   module Medias
+    class MediaGenreType < Types::BaseObject
+      field :id, ID
+      field :name, String
+    end
+
     class MediaType < Types::BaseUnion
       possible_types Types::Movies::MovieType, Types::TvShows::TvType
 
@@ -16,4 +21,3 @@ module Types
     end
   end
 end
-

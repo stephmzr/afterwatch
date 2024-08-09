@@ -8,6 +8,13 @@ export const MOVIE_SHOW_FRAGMENT = gql`
     overview
     releaseDate
     posterPath
+    runtime
+    tagline
+    voteAverage
+    genres {
+      id
+      name
+    }
   }
 `
 
@@ -18,6 +25,13 @@ export const TV_SHOW_FRAGMENT = gql`
     originalLanguage
     overview
     releaseDate: firstAirDate
+    runtime: episodeRunTime
     posterPath
+    tagline
+    voteAverage
+    genres {
+      id
+      name
+    }
   }
 `

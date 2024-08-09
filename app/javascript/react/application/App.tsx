@@ -1,14 +1,14 @@
-import React from "react";
-import AppLayout from './components/Layout';
-import TranslationProvider from "../../utils/TranslationProvider";
-import AppProvider from "../shared/components/AppProvider";
+import React from 'react'
+import AppLayout from './components/Layout'
+import TranslationProvider from '../../utils/TranslationProvider'
+import AppProvider from '../shared/components/AppProvider'
 import routes from './routes'
-import '../../assets/stylesheets/global.sass';
-import './assets/stylesheets/global.sass';
-import flattenRoutes from "../../utils/flattenRoutes";
-import { Route, Routes } from "react-router-dom";
+import '../../assets/stylesheets/global.sass'
+import './assets/stylesheets/global.sass'
+import flattenRoutes from '../../utils/flattenRoutes'
+import { Route, Routes } from 'react-router-dom'
 
-type AppProps = {}
+interface AppProps {}
 
 const App: React.FC<AppProps> = (props) => {
   return (
@@ -16,7 +16,7 @@ const App: React.FC<AppProps> = (props) => {
       <AppLayout>
         <Routes>
           {flattenRoutes(routes).filter(route => !route.access).map(route => {
-          const Component = route.component;
+            const Component = route.component
             return (
               <Route key={route.name} exact path={route.path} element={<Component />}/>
             )
@@ -27,4 +27,4 @@ const App: React.FC<AppProps> = (props) => {
   )
 }
 
-export default TranslationProvider(App);
+export default TranslationProvider(App)

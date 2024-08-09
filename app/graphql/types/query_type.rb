@@ -79,5 +79,11 @@ module Types
       response = TmdbApi::Movie.new.get(id)
       response.parsed_response
     end
+
+    field :trending_movies, [Types::Medias::MediaType], null: false
+    def trending_movies
+      response = TmdbApi::Media.new.get_trending
+      response['results']
+    end
   end
 end
