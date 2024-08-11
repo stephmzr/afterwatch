@@ -10,7 +10,7 @@ const MediaSynospis = ({ synopsis }: { synopsis: string }): JSX.Element => {
     <>
       <Typography variant='h5' gutterBottom>{t('pages.media_show.synopsis')}</Typography>
       <MuiDivider style={{ borderColor: 'black' }} />
-      <Typography variant="body1" sx={{ margin: '18px 0'}}>{synopsis}</Typography>
+      <Typography variant="body1" sx={{ margin: '18px 0' }}>{synopsis}</Typography>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './styles/MediaShow.sass'
-import { Container, Grid, Stack } from '@mui/material'
+import { Container, Grid, Stack, Typography } from '@mui/material'
 import { gql, useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { MOVIE_SHOW_FRAGMENT, TV_SHOW_FRAGMENT } from './graphql/fragments'
@@ -10,10 +10,11 @@ import MediaImage from '../../components/MediaImage'
 import MediaRating from '../../components/MediaRating'
 import { extractColors } from 'extract-colors'
 import { imageBaseUrl } from '@/utils/imageBaseUrl'
-import MuiDivider from '../../components/MuiComponents/MuiDivider'
-import useI18n from '@/utils/useI18n'
 import MediaSynopsis from './components/MediaSynopsis/MediaSynopsis'
 import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
+import StarIcon from '@mui/icons-material/Star'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
+import ListIcon from '@mui/icons-material/List'
 
 const GET_MEDIA = gql`
   query media($id: ID!, $type: String!, $withCredits: Boolean) {
@@ -57,7 +58,6 @@ const retrieveImg = async (response: any) => {
 
 const MediaShow = (): JSX.Element | null => {
   const { id, type } = useParams()
-  const { t } = useI18n()
   const { data, loading } = useQuery(GET_MEDIA, {
     variables: { id, type, withCredits: true }
   })
@@ -94,15 +94,14 @@ const MediaShow = (): JSX.Element | null => {
 
   if (loading) return null
 
-  console.log(media)
-
   return (
     <>
-    <Grid container spacing={0} className='media-show-grid' justifyContent="center" style={{ background: bgColor ?? '#7D7D7D' }}>
+    <Grid container spacing={0} className='media-show-grid' style={{ background: bgColor ?? '#7D7D7D' }}>
+      <Grid item xs={2}/>
       <Grid item xs={2} className='media-poster'>
         <MediaImage imageUrl={media.posterPath} title={media.title} height='343px' width='228px' />
       </Grid>
-      <Grid item xl={6} className='media-summary'>
+      <Grid item xl={4} className='media-summary'>
         <h1>
           <Stack direction='row' gap={2}>
             <span className='is-bold'>{media?.title}</span>
@@ -112,8 +111,24 @@ const MediaShow = (): JSX.Element | null => {
         <p>
           {media?.releaseDate.toString()} ({media.originalLanguage.toUpperCase()}) - {media.genres.map((genre) => genre.name).join(', ')} - {media.runtime} min
         </p>
+        <div>
+        <span>
+          <Grid container spacing={5}>
+            <Grid item className='flex-centered'>
+              <StarIcon style={{ marginRight: 4, marginBottom: 4 }} /><Typography>452</Typography>
+            </Grid>
+            <Grid item className='flex-centered'>
+              <BookmarkIcon style={{ marginRight: 4, marginBottom: 4 }} /><Typography>34</Typography>
+          </Grid>
+            <Grid item className='flex-centered'>
+              <ListIcon style={{ marginRight: 4, marginBottom: 4 }} /><Typography>12</Typography>
+            </Grid>
+          </Grid>
+          </span>
+        </div>
         {/* <p>RATINGS</p> */}
         <p className='is-italic tagline'>{media.tagline}</p>
+        <Typography variant="body1" className='media-overview'>{media.overview}</Typography>
         <Stack direction='row' justifyContent='space-between'>
           <span></span>
           <MediaRating rating={media.voteAverage} />
@@ -121,7 +136,7 @@ const MediaShow = (): JSX.Element | null => {
       </Grid>
     </Grid>
     <Container component="main" maxWidth='md' sx={{ flexGrow: 1, mt: 2 }}>
-      <MediaSynopsis synopsis={media.overview} />
+      {/* <MediaSynopsis synopsis={media.overview} /> */}
       <MediaCastList cast={media.credits.cast} />
     </Container>
     </>
