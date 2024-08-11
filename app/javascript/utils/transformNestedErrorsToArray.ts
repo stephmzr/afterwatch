@@ -4,7 +4,7 @@ const transformNestedErrorsToArray = (errors: any): object => {
   keys.forEach(key => {
     const found = key.match(/(.+)\[(\d+)\]\.(.+)/);
     if (found) {
-      const [_k, attributeName, index, name] = found;
+      const [re_k, attributeName, index, name] = found;
       if (!nextErrors[attributeName]) nextErrors[attributeName] = [];
       if (!nextErrors[attributeName][index])
         nextErrors[attributeName][index] = {};

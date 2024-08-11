@@ -21,6 +21,7 @@ export const MOVIE_FRAGMENT = gql`
     overview
     releaseDate
     posterPath
+    voteAverage
   }
 `;
 

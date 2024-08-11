@@ -44,6 +44,9 @@ fr:
   pages:
     home_page:
       trending_movies: Les tendances
+    media_show:
+      casting: Distribution
+      synopsis: Synopsis
     user:
       index:
         new_user: Ajouter un utilisateur

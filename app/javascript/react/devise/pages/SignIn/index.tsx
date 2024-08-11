@@ -84,7 +84,7 @@ const SignIn: React.FC<SignInProps> = props => {
     })
   }
 
-  console.log(formValues)
+
   const signInUser = (user: UserType) => {
     post('/users/sign_in', {
       ...formValues

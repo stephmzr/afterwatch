@@ -1,6 +1,6 @@
 module Types
   module Medias
-    class MediaGenreType < Types::BaseObject
+    class GenreType < Types::BaseObject
       field :id, ID
       field :name, String
     end

@@ -46,7 +46,7 @@ const GlobalSearch = (): JSX.Element => {
     releaseDate: media.releaseDate,
     type: media.__typename
   }))
-  console.log(mediaOptions)
+
   return (
     <>
       <Backdrop open={open} style={{ color: '#fff', zIndex: 1 }} />
@@ -76,7 +76,7 @@ const GlobalSearch = (): JSX.Element => {
           )}
           renderOption={(props, option: Partial<MediaType> & { label?: string, value?: string }) => (
             <Box className='media-item' onClick={() => { history(`/medias/${option.type?.toLocaleLowerCase()}/${option.value}`) }} component="li" sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
-              <MediaImage imageUrl={option?.posterPath} title={option.title} height='84px' />
+              <MediaImage imageUrl={option?.posterPath} title={option.title} height='84px' borderRadius={12} />
               <Typography variant="subtitle1" component="div" className='is-bold' style={{ marginLeft: 8 }}>
                 {option.label ?? ''} ({dayjs(option?.releaseDate, 'DD/MM/YYYY').year()})
               </Typography>

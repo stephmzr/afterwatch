@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './styles/MediaShow.sass'
-import { Grid, Stack } from '@mui/material'
+import { Container, Grid, Stack } from '@mui/material'
 import { gql, useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { MOVIE_SHOW_FRAGMENT, TV_SHOW_FRAGMENT } from './graphql/fragments'
@@ -8,15 +8,38 @@ import { type MediaType } from '@/react/types'
 import dayjs from '@/utils/dayjs'
 import MediaImage from '../../components/MediaImage'
 import MediaRating from '../../components/MediaRating'
-import { round } from 'lodash'
 import { extractColors } from 'extract-colors'
 import { imageBaseUrl } from '@/utils/imageBaseUrl'
+import MuiDivider from '../../components/MuiComponents/MuiDivider'
+import useI18n from '@/utils/useI18n'
+import MediaSynopsis from './components/MediaSynopsis/MediaSynopsis'
+import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
 
 const GET_MEDIA = gql`
-  query media($id: ID!, $type: String!) {
-    media(id: $id, type: $type) {
+  query media($id: ID!, $type: String!, $withCredits: Boolean) {
+    media(id: $id, type: $type, withCredits: $withCredits) {
       ... on Movie {
         ...MovieShowInfo
+        credits {
+          id
+          director {
+            id
+            name
+            profilePath
+          }
+          cast {
+            id
+            name
+            profilePath
+            character
+          }
+          crew {
+            id
+            name
+            profilePath
+            job
+          }
+        }
       }
       ... on Tv {
         ...TvShowInfo
@@ -34,9 +57,9 @@ const retrieveImg = async (response: any) => {
 
 const MediaShow = (): JSX.Element | null => {
   const { id, type } = useParams()
-
+  const { t } = useI18n()
   const { data, loading } = useQuery(GET_MEDIA, {
-    variables: { id, type }
+    variables: { id, type, withCredits: true }
   })
 
   const media: MediaType = data?.media
@@ -50,7 +73,6 @@ const MediaShow = (): JSX.Element | null => {
       fetch(targetUrl)
         .then(retrieveImg)
         .then(blob => {
-          console.log(blob)
           const img = new Image()
           img.crossOrigin = 'anonymous'
           img.src = URL.createObjectURL(blob)
@@ -71,9 +93,12 @@ const MediaShow = (): JSX.Element | null => {
   }, [media?.posterPath])
 
   if (loading) return null
+
   console.log(media)
+
   return (
-    <Grid container spacing={0} className='media-show-grid' justifyContent="center" style={{ background: bgColor ?? '#FFFFFF' }}>
+    <>
+    <Grid container spacing={0} className='media-show-grid' justifyContent="center" style={{ background: bgColor ?? '#7D7D7D' }}>
       <Grid item xs={2} className='media-poster'>
         <MediaImage imageUrl={media.posterPath} title={media.title} height='343px' width='228px' />
       </Grid>
@@ -91,10 +116,15 @@ const MediaShow = (): JSX.Element | null => {
         <p className='is-italic tagline'>{media.tagline}</p>
         <Stack direction='row' justifyContent='space-between'>
           <span></span>
-          <MediaRating rating={round(media.voteAverage, 1)} />
+          <MediaRating rating={media.voteAverage} />
         </Stack>
       </Grid>
     </Grid>
+    <Container component="main" maxWidth='md' sx={{ flexGrow: 1, mt: 2 }}>
+      <MediaSynopsis synopsis={media.overview} />
+      <MediaCastList cast={media.credits.cast} />
+    </Container>
+    </>
   )
 }
 

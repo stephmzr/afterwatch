@@ -3,15 +3,21 @@ import { type MovieType } from '@/react/types'
 import React from 'react'
 import './TrendingMovieItem.sass'
 import { Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 interface TrendingMovieItemProps {
   movie: MovieType
 }
 
 const TrendingMovieItem = ({ movie }: TrendingMovieItemProps): JSX.Element => {
+  const history = useNavigate()
   return (
-    <div key={movie.id} className='trending-movie'>
-      <MediaImage imageUrl={movie.posterPath} height='169px' />
+    <div
+      key={movie.id}
+      className='trending-movie'
+      onClick={() => { history(`/medias/movie/${movie.id}`) }}
+    >
+      <MediaImage imageUrl={movie.posterPath} height='169px' rating={movie.voteAverage} />
       <Typography noWrap>{movie.title}</Typography>
     </div>
   )

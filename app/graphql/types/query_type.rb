@@ -39,36 +39,36 @@ module Types
     end
 
     field :medias, [Types::Medias::MediaType], null: false do
-      argument :language, String, required: false
       argument :search, InputObject::SearchMediasAttributes, required: true
       argument :per_page, Int, required: false
     end
 
-    def medias(language: TmdbApi::Base::BASE_LANGUAGE, search: {}, per_page: 5)
-      response = TmdbApi::Media.new.search_multi(search[:query], language)
+    def medias(search: {}, per_page: 5)
+      response = TmdbApi::Media::MediaSearcher.new.search_multi(search[:query])
       response['results'].first(per_page)
     end
 
     field :media, Types::Medias::MediaType, null: true do
       argument :id, ID, required: true
       argument :type, String, required: true
+      argument :with_credits, Boolean, required: false
     end
-    def media(id:, type:)
-      response = TmdbApi::Media.new.get(id, type)
+    def media(id:, type:, with_credits: false)
+      response = TmdbApi::Media::MediaFetcher.new.get(id, type)
       p type
       # Add media_type to the response to be able to determine the type of media
       response['media_type'] = type
+      response['credits'] = TmdbApi::Credit::CreditFetcher.new.get(id, type) if with_credits
       response.parsed_response
     end
 
     field :movies, [Types::Movies::MovieType], null: false do
-      argument :language, String, required: false
       argument :search, InputObject::SearchMoviesAttributes, required: true
       argument :per_page, Int, required: false
     end
 
-    def movies(language: TmdbApi::Base::BASE_LANGUAGE, search: {}, per_page: 5)
-      response = TmdbApi::Movie.new.search_movies(search[:query], language)
+    def movies(search: {}, per_page: 5)
+      response = TmdbApi::Movie.new.search_movies(search[:query])
       response['results'].first(per_page)
     end
 
@@ -80,9 +80,9 @@ module Types
       response.parsed_response
     end
 
-    field :trending_movies, [Types::Medias::MediaType], null: false
+    field :trending_movies, [Types::Movies::MovieType], null: false
     def trending_movies
-      response = TmdbApi::Media.new.get_trending
+      response = TmdbApi::Trending::TrendingMediaFetcher.new.get_trending('movie')
       response['results']
     end
   end

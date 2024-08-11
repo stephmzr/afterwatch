@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 export type ID = string | number
 
 export interface FileType {
@@ -48,6 +49,7 @@ export interface BaseMediaType {
   originalLanguage: string
   mediaType: string
   genres: GenreType[]
+  credits: CreditType
   runtime: number
   tagline: string
   voteAverage: number
@@ -69,3 +71,24 @@ export interface TvShowType extends BaseMediaType {
 
 // Union type for flexibility
 export type MediaType = MovieType | TvShowType
+
+export interface CreditType {
+  id: ID
+  cast: CastType[]
+  crew: CrewType[]
+  director: CrewType
+}
+
+export interface CastType {
+  id: ID
+  name: string
+  profilePath: string
+  character: string
+}
+
+export interface CrewType {
+  id: ID
+  name: string
+  profilePath: string
+  job: string
+}

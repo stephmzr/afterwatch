@@ -1,23 +1,29 @@
 import { Paper, styled } from '@mui/material'
 import React from 'react'
-import './MediaRating.sass'
+import { round } from 'lodash'
 
-const Item = styled(Paper)(({ theme }) => ({
+interface ItemProps {
+  height?: string
+  width?: string
+}
+
+const Item = styled(Paper)<ItemProps>(({ theme, height, width }) => ({
   ...theme.typography.body2,
   border: '2px solid #5D5D5D',
   textAlign: 'center',
   color: theme.palette.secondary.main,
-  height: 50,
-  width: 80,
+  height: height ?? '50px',
+  width: width ?? '80px',
   borderRadius: 12,
   alignContent: 'center',
   background: '#050505'
 }))
 
-const MediaRating = ({ rating }: { rating: number }): JSX.Element => {
+const MediaRating = ({ rating, height, width, fontSize = 26 }: { rating: number, height?: string, width?: string, fontSize?: number }): JSX.Element => {
+  const roundedRating = round(rating, 1)
   return (
-    <Item>
-      <span className='is-bold rating'>{rating}</span>
+    <Item height={height} width={width}>
+      <span className='is-bold' style={{ fontSize }}>{roundedRating}</span>
     </Item>
   )
 }

@@ -2,8 +2,8 @@ import useI18n from '@/utils/useI18n'
 import React from 'react'
 import MuiDivider from '@components/MuiComponents/MuiDivider'
 import { gql, useQuery } from '@apollo/client'
-import { MOVIE_FRAGMENT, TV_SHOW_FRAGMENT } from '@/utils/fragments'
-import { CircularProgress, Stack } from '@mui/material'
+import { MOVIE_FRAGMENT } from '@/utils/fragments'
+import { CircularProgress, Stack, Typography } from '@mui/material'
 import './TrendingMovies.sass'
 import TrendingMovieItem from './TrendingMovieItem/TrendingMovieItem'
 import { type MovieType } from '@/react/types'
@@ -12,16 +12,10 @@ import { take } from 'lodash'
 const GET_TRENDING_MOVIES = gql`
   query trendingMovies {
     trendingMovies {
-      ... on Movie {
-        ...MovieInfo
-      }
-      ... on Tv {
-        ...TvShowInfo
-      }
+      ...MovieInfo
     }
   }
   ${MOVIE_FRAGMENT}
-  ${TV_SHOW_FRAGMENT}
 `
 
 const TrendingMovies = (): JSX.Element => {
@@ -31,7 +25,7 @@ const TrendingMovies = (): JSX.Element => {
 
   return (
     <div>
-      <h2 className='is-bold'>{t('pages.home_page.trending_movies')}</h2>
+      <Typography variant='h5' gutterBottom>{t('pages.home_page.trending_movies')}</Typography>
       <MuiDivider style={{ borderColor: 'black' }} />
       {loading
         ? (
