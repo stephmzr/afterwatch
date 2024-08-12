@@ -1,55 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import './styles/MediaShow.sass'
 import { Container, Grid, Stack, Typography } from '@mui/material'
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
-import { MOVIE_SHOW_FRAGMENT, TV_SHOW_FRAGMENT } from './graphql/fragments'
 import { type MediaType } from '@/react/types'
 import dayjs from '@/utils/dayjs'
 import MediaImage from '../../components/MediaImage'
 import MediaRating from '../../components/MediaRating'
 import { extractColors } from 'extract-colors'
 import { imageBaseUrl } from '@/utils/imageBaseUrl'
-import MediaSynopsis from './components/MediaSynopsis/MediaSynopsis'
 import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
 import StarIcon from '@mui/icons-material/Star'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
 import ListIcon from '@mui/icons-material/List'
-
-const GET_MEDIA = gql`
-  query media($id: ID!, $type: String!, $withCredits: Boolean) {
-    media(id: $id, type: $type, withCredits: $withCredits) {
-      ... on Movie {
-        ...MovieShowInfo
-        credits {
-          id
-          director {
-            id
-            name
-            profilePath
-          }
-          cast {
-            id
-            name
-            profilePath
-            character
-          }
-          crew {
-            id
-            name
-            profilePath
-            job
-          }
-        }
-      }
-      ... on Tv {
-        ...TvShowInfo
-      }
-    }
-  }
-  ${MOVIE_SHOW_FRAGMENT}
-  ${TV_SHOW_FRAGMENT}
-`
+import { GET_MEDIA } from './graphql/queries'
+import MediaSummary from './components/MediaSummary/MediaSummary'
 
 const retrieveImg = async (response: any) => {
   const image = await response.blob()
@@ -97,48 +62,40 @@ const MediaShow = (): JSX.Element | null => {
   return (
     <>
     <Grid container spacing={0} className='media-show-grid' style={{ background: bgColor ?? '#7D7D7D' }}>
-      <Grid item xs={2}/>
-      <Grid item xs={2} className='media-poster'>
+      {/* Empty space on the left */}
+      <Grid item xl={2} sm={0}/>
+
+      {/* Media poster */}
+      <Grid item sm={3} xl={2} className='media-poster'>
         <MediaImage imageUrl={media.posterPath} title={media.title} height='343px' width='228px' />
       </Grid>
-      <Grid item xl={4} className='media-summary'>
-        <h1>
-          <Stack direction='row' gap={2}>
-            <span className='is-bold'>{media?.title}</span>
-            <span className='media-release-year'>({dayjs(media?.releaseDate, 'DD/MM/YYYY').year()})</span>
-          </Stack>
-        </h1>
-        <p>
-          {media?.releaseDate.toString()} ({media.originalLanguage.toUpperCase()}) - {media.genres.map((genre) => genre.name).join(', ')} - {media.runtime} min
-        </p>
-        <div>
-        <span>
-          <Grid container spacing={5}>
-            <Grid item className='flex-centered'>
-              <StarIcon style={{ marginRight: 4, marginBottom: 4 }} /><Typography>452</Typography>
-            </Grid>
-            <Grid item className='flex-centered'>
-              <BookmarkIcon style={{ marginRight: 4, marginBottom: 4 }} /><Typography>34</Typography>
-          </Grid>
-            <Grid item className='flex-centered'>
-              <ListIcon style={{ marginRight: 4, marginBottom: 4 }} /><Typography>12</Typography>
-            </Grid>
-          </Grid>
-          </span>
-        </div>
-        {/* <p>RATINGS</p> */}
-        <p className='is-italic tagline'>{media.tagline}</p>
-        <Typography variant="body1" className='media-overview'>{media.overview}</Typography>
-        <Stack direction='row' justifyContent='space-between'>
-          <span></span>
-          <MediaRating rating={media.voteAverage} />
-        </Stack>
+
+      {/* Media summary */}
+      <Grid item sm={6} xl={4} className='media-summary'>
+        {/* TODO: MediaSummary */}
+        <MediaSummary
+          title={media.title}
+          releaseDate={media.releaseDate}
+          originalLanguage={media.originalLanguage}
+          genres={media.genres}
+          runtime={media.runtime}
+          tagline={media.tagline}
+          overview={media.overview}
+          voteAverage={media.voteAverage}
+        />
       </Grid>
     </Grid>
-    <Container component="main" maxWidth='md' sx={{ flexGrow: 1, mt: 2 }}>
-      {/* <MediaSynopsis synopsis={media.overview} /> */}
-      <MediaCastList cast={media.credits.cast} />
-    </Container>
+    <Grid container spacing={0}>
+      {/* Empty space on the left */}
+      <Grid item xl={4} sm={3}/>
+
+      {/* Media cast list */}
+      <Grid item sm={6} xl={4}>
+        <Container maxWidth='md' sx={{ flexGrow: 1, mt: 2, ml: 0 }} disableGutters>
+          <MediaCastList cast={media.credits.cast} />
+        </Container>
+      </Grid>
+    </Grid>
     </>
   )
 }

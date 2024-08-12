@@ -5,9 +5,10 @@ import { round } from 'lodash'
 interface ItemProps {
   height?: string
   width?: string
+  margin?: string
 }
 
-const Item = styled(Paper)<ItemProps>(({ theme, height, width }) => ({
+const Item = styled(Paper)<ItemProps>(({ theme, height, width, margin }) => ({
   ...theme.typography.body2,
   border: '2px solid #5D5D5D',
   textAlign: 'center',
@@ -16,13 +17,14 @@ const Item = styled(Paper)<ItemProps>(({ theme, height, width }) => ({
   width: width ?? '80px',
   borderRadius: 12,
   alignContent: 'center',
-  background: '#050505'
+  background: '#050505',
+  margin,
 }))
 
-const MediaRating = ({ rating, height, width, fontSize = 26 }: { rating: number, height?: string, width?: string, fontSize?: number }): JSX.Element => {
+const MediaRating = ({ rating, height, width, fontSize = 26, margin }: { rating: number, height?: string, width?: string, fontSize?: number, margin?: string }): JSX.Element => {
   const roundedRating = round(rating, 1)
   return (
-    <Item height={height} width={width}>
+    <Item height={height} width={width} margin={margin}>
       <span className='is-bold' style={{ fontSize }}>{roundedRating}</span>
     </Item>
   )

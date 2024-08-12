@@ -2,6 +2,7 @@ module Types
   module TvShows
     class TvType < Types::BaseObject
       field :backdrop_path, String
+      field :credits, Types::Credits::CreditType
       field :episode_run_time, [Int]
       field :first_air_date, Types::DateType
       field :genres, [Types::Medias::GenreType]
