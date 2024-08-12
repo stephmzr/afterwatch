@@ -51,14 +51,13 @@ module Types
     field :media, Types::Medias::MediaType, null: true do
       argument :id, ID, required: true
       argument :type, String, required: true
-      argument :with_credits, Boolean, required: false
+      argument :options, InputObject::MediasOptionsAttributes, required: false
     end
-    def media(id:, type:, with_credits: false)
-      response = TmdbApi::Media::MediaFetcher.new.get(id, type, with_credits: with_credits)
-      p type
+    def media(id:, type:, options: {})
+      response = TmdbApi::Media::MediaFetcher.new.get(id, type, options)
       # Add media_type to the response to be able to determine the type of media
       response['media_type'] = type
-      response['credits'] = TmdbApi::Credit::CreditFetcher.new.get(id, type) if with_credits
+      p response.parsed_response
       response.parsed_response
     end
 

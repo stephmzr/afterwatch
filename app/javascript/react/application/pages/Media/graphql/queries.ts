@@ -2,10 +2,17 @@ import { gql } from '@apollo/client'
 import { MOVIE_SHOW_FRAGMENT, TV_SHOW_FRAGMENT } from './fragments'
 
 export const GET_MEDIA = gql`
-  query media($id: ID!, $type: String!, $withCredits: Boolean) {
-    media(id: $id, type: $type, withCredits: $withCredits) {
+  query media($id: ID!, $type: String!, $options: MediasOptionsAttributes) {
+    media(id: $id, type: $type, options: $options) {
       ... on Movie {
         ...MovieShowInfo
+        watchProviders {
+          rent {
+            providerId
+            providerName
+            logoPath
+          }
+        }
         credits {
           id
           director {
@@ -18,17 +25,18 @@ export const GET_MEDIA = gql`
             name
             profilePath
             character
-          }
-          crew {
-            id
-            name
-            profilePath
-            job
           }
         }
       }
       ... on Tv {
         ...TvShowInfo
+        watchProviders {
+          rent {
+            providerId
+            providerName
+            logoPath
+          }
+        }
         credits {
           id
           director {
@@ -41,12 +49,6 @@ export const GET_MEDIA = gql`
             name
             profilePath
             character
-          }
-          crew {
-            id
-            name
-            profilePath
-            job
           }
         }
       }

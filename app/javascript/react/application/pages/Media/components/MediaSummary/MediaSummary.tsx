@@ -19,14 +19,13 @@ interface MediaSummaryProps {
   voteAverage: number
 }
 
-
 const RATING_DEFAULT_MARGIN = '36px 0 0 0'
 const RATING_NO_MARGIN = '0'
 
 /**
  * MediaSummary component renders the summary of a media item.
  * It displays the title, release date, original language, genres, runtime, tagline, overview, and average vote rating.
- *
+ * TODO : Add the name of the director
  * @param {MediaSummaryProps} props - The props for the MediaSummary component.
  * @returns {JSX.Element} The rendered MediaSummary component.
  */

@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import './styles/MediaShow.sass'
-import { Container, Grid, Stack, Typography } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { type MediaType } from '@/react/types'
-import dayjs from '@/utils/dayjs'
 import MediaImage from '../../components/MediaImage'
-import MediaRating from '../../components/MediaRating'
 import { extractColors } from 'extract-colors'
 import { imageBaseUrl } from '@/utils/imageBaseUrl'
 import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
-import StarIcon from '@mui/icons-material/Star'
-import BookmarkIcon from '@mui/icons-material/Bookmark'
-import ListIcon from '@mui/icons-material/List'
 import { GET_MEDIA } from './graphql/queries'
 import MediaSummary from './components/MediaSummary/MediaSummary'
+import useI18n from '@/utils/useI18n'
+import MediaStreamingProviders from './components/MediaStreamingProviders/MediaStreamingProviders'
 
 const retrieveImg = async (response: any) => {
   const image = await response.blob()
@@ -23,8 +20,9 @@ const retrieveImg = async (response: any) => {
 
 const MediaShow = (): JSX.Element | null => {
   const { id, type } = useParams()
+  const { t } = useI18n()
   const { data, loading } = useQuery(GET_MEDIA, {
-    variables: { id, type, withCredits: true }
+    variables: { id, type, options: { credits: true, watchProviders: true } }
   })
 
   const media: MediaType = data?.media
@@ -87,8 +85,12 @@ const MediaShow = (): JSX.Element | null => {
     </Grid>
     <Grid container spacing={0}>
       {/* Empty space on the left */}
-      <Grid item xl={4} sm={3}/>
+      <Grid item xl={2} sm={0}/>
 
+      {/* Media streaming providers */}
+      <Grid item sm={3} xl={2} className='streaming-providers-grid'>
+        <MediaStreamingProviders />
+      </Grid>
       {/* Media cast list */}
       <Grid item sm={6} xl={4}>
         <Container maxWidth='md' sx={{ flexGrow: 1, mt: 2, ml: 0 }} disableGutters>

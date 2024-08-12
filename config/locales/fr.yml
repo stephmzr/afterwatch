@@ -47,6 +47,8 @@ fr:
     media_show:
       casting: Distribution
       synopsis: Synopsis
+      show_more_cast: Voir toute la distribution
+      where_to_watch: Où regarder ?
     user:
       index:
         new_user: Ajouter un utilisateur

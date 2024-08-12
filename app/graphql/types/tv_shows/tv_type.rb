@@ -4,6 +4,7 @@ module Types
       field :backdrop_path, String
       field :credits, Types::Credits::CreditType
       field :episode_run_time, [Int]
+      field :watch_providers, Types::WatchProviders::WatchProviderType
       field :first_air_date, Types::DateType
       field :genres, [Types::Medias::GenreType]
       field :id, ID

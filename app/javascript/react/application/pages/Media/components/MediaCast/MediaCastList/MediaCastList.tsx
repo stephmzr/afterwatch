@@ -3,8 +3,9 @@ import useI18n from '@/utils/useI18n'
 import React from 'react'
 import MediaCastItem from '../MediaCastItem/MediaCastItem'
 import MuiDivider from '@/react/application/components/MuiComponents/MuiDivider'
-import { Stack, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 import './MediaCastList.sass'
+import MuiButton from '@/react/application/components/MuiComponents/MuiButton'
 
 interface MediaCastListProps {
   cast: CastType[]
@@ -22,6 +23,11 @@ const MediaCastList: React.FC<MediaCastListProps> = (props): JSX.Element | null 
           <MediaCastItem key={actor.id} actor={actor} />
         ))}
       </Stack>
+      <div className='text-align-end'>
+        <MuiButton variant='contained' onClick={() => { console.log('Show more cast') }} sx={{ paddingTop: '10px' }}>
+          {t('pages.media_show.show_more_cast')}
+        </MuiButton>
+      </div>
     </div>
   )
 }
