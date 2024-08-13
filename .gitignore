@@ -50,3 +50,5 @@ node_modules
 
 /deployment/secrets/*
 /deployment/charts/*
+
+/config/credentials.yml.enc
