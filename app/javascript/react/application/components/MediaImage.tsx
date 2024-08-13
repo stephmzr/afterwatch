@@ -10,6 +10,7 @@ interface MediaImageProps {
   width?: string
   rating?: number
   borderRadius?: number
+  renderType?: 'original' | 'w500'
 }
 
 /**
@@ -26,11 +27,13 @@ interface MediaImageProps {
  * @returns {JSX.Element} The rendered media image component.
  */
 const MediaImage: React.FC<MediaImageProps> = (props) => {
-  const { imageUrl, title, height, width, borderRadius, rating = undefined } = props
-  console.log(`${imageBaseUrl}/${imageUrl}`)
+  const { imageUrl, title, height, width, borderRadius, rating = undefined, renderType = 'original' } = props
+  const src = `${imageBaseUrl[renderType]}/${imageUrl}`
+ 
+  console.log(src)
   return (
     <div className="media-image-container" style={{ height, width }}>
-      <img src={`${imageBaseUrl}/${imageUrl}`} alt={title} style={{ height, width, borderRadius: borderRadius ?? 0 }} />
+      <img src={src} alt={title} style={{ height, width, borderRadius: borderRadius ?? 0 }} />
       {rating !== undefined && (
         <div className="media-rating-overlay">
           <MediaRating rating={rating} width='44px' height='25px' fontSize={14} />

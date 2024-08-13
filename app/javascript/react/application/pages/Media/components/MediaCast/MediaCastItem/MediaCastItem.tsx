@@ -11,7 +11,7 @@ const MediaCastItem = ({ actor }: { actor: CastType }): JSX.Element => {
       <CardMedia
         sx={{ height: '60%' }}
         component="img"
-        src={`${imageBaseUrl}/${actor.profilePath}`}
+        src={`${imageBaseUrl.w154}/${actor.profilePath}`}
         title={actor.name}
       />
       <CardContent>

@@ -53,6 +53,7 @@ export interface BaseMediaType {
   runtime: number
   tagline: string
   voteAverage: number
+  watchProviders: WatchProviderType
 }
 
 export interface GenreType {
@@ -91,4 +92,13 @@ export interface CrewType {
   name: string
   profilePath: string
   job: string
+}
+
+export interface WatchProviderType {
+  id: ID
+  providers: {
+    id: ID
+    providerName: string
+    logoPath: string
+  }
 }

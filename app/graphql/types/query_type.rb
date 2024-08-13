@@ -45,7 +45,8 @@ module Types
 
     def medias(search: {}, per_page: 5)
       response = TmdbApi::Media::MediaSearcher.new.search_multi(search[:query])
-      response['results'].first(per_page)
+      response = response['results'].filter { |media| media['media_type'] == 'movie' || media['media_type'] == 'tv' }
+      response.first(per_page)
     end
 
     field :media, Types::Medias::MediaType, null: true do

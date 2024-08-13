@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './styles/MediaShow.sass'
 import { Container, Grid } from '@mui/material'
 import { useQuery } from '@apollo/client'
@@ -10,8 +10,8 @@ import { imageBaseUrl } from '@/utils/imageBaseUrl'
 import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
 import { GET_MEDIA } from './graphql/queries'
 import MediaSummary from './components/MediaSummary/MediaSummary'
-import useI18n from '@/utils/useI18n'
-import MediaStreamingProviders from './components/MediaStreamingProviders/MediaStreamingProviders'
+import MediaStreamingProviders from './components/MediaWatchProviders/MediaWatchProviders'
+import MediaWatchProviders from './components/MediaWatchProviders/MediaWatchProviders'
 
 const retrieveImg = async (response: any) => {
   const image = await response.blob()
@@ -20,7 +20,6 @@ const retrieveImg = async (response: any) => {
 
 const MediaShow = (): JSX.Element | null => {
   const { id, type } = useParams()
-  const { t } = useI18n()
   const { data, loading } = useQuery(GET_MEDIA, {
     variables: { id, type, options: { credits: true, watchProviders: true } }
   })
@@ -29,34 +28,39 @@ const MediaShow = (): JSX.Element | null => {
 
   const [bgColor, setBgColor] = useState<string | null>(null)
 
+  const processImage = useCallback((posterPath: string) => {
+    const targetUrl = `${imageBaseUrl.original}/${posterPath}`
+
+    fetch(targetUrl)
+      .then(retrieveImg)
+      .then(blob => {
+        const img = new Image()
+        img.crossOrigin = 'anonymous'
+        img.src = URL.createObjectURL(blob)
+        img.onload = () => {
+          extractColors(img)
+            .then(colors => {
+              const maxAreaColor = colors.reduce((max, color) => color.area > max.area ? color : max, colors[0])
+              setBgColor(maxAreaColor.hex)
+            })
+            .catch(console.error)
+        }
+        img.onerror = (error) => {
+          console.error('Image failed to load', error)
+        }
+      })
+      .catch(console.error)
+  }, [])
+
   useEffect(() => {
     if (media?.posterPath) {
-      const targetUrl = `${imageBaseUrl}/${media.posterPath}`
-
-      fetch(targetUrl)
-        .then(retrieveImg)
-        .then(blob => {
-          const img = new Image()
-          img.crossOrigin = 'anonymous'
-          img.src = URL.createObjectURL(blob)
-          img.onload = () => {
-            extractColors(img)
-              .then(colors => {
-                const maxAreaColor = colors.reduce((max, color) => color.area > max.area ? color : max, colors[0])
-                setBgColor(maxAreaColor.hex)
-              })
-              .catch(console.error)
-          }
-          img.onerror = (error) => {
-            console.error('Image failed to load', error)
-          }
-        })
-        .catch(console.error)
+      processImage(media.posterPath)
     }
-  }, [media?.posterPath])
+  }, [media?.posterPath, processImage])
 
   if (loading) return null
 
+  console.log(media)
   return (
     <>
     <Grid container spacing={0} className='media-show-grid' style={{ background: bgColor ?? '#7D7D7D' }}>
@@ -89,7 +93,7 @@ const MediaShow = (): JSX.Element | null => {
 
       {/* Media streaming providers */}
       <Grid item sm={3} xl={2} className='streaming-providers-grid'>
-        <MediaStreamingProviders />
+        <MediaWatchProviders providers={media?.watchProviders?.providers || []}/>
       </Grid>
       {/* Media cast list */}
       <Grid item sm={6} xl={4}>

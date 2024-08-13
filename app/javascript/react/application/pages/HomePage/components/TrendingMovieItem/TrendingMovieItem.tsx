@@ -17,7 +17,7 @@ const TrendingMovieItem = ({ movie }: TrendingMovieItemProps): JSX.Element => {
       className='trending-movie'
       onClick={() => { history(`/medias/movie/${movie.id}`) }}
     >
-      <MediaImage imageUrl={movie.posterPath} height='169px' rating={movie.voteAverage} />
+      <MediaImage imageUrl={movie.posterPath} height='169px' rating={movie.voteAverage} renderType='w500'/>
       <Typography noWrap>{movie.title}</Typography>
     </div>
   )

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useIntl } from 'react-intl'
 import { type UserType } from '../../../types'
 import post from '../../../../utils/httpPost'
 import useI18n from '@/utils/useI18n'

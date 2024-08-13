@@ -9,7 +9,6 @@ module TmdbApi
       end
 
       def get(id, type, options = {}, language = BASE_LANGUAGE)
-        p options
         params = { language: }
         media_data = @http_client.get("#{BASE_URL}/#{type}/#{id}", params)
 

@@ -1,10 +1,25 @@
 import useI18n from '@/utils/useI18n'
-import { Box, Typography } from '@mui/material'
+import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import YouTubeIcon from '@mui/icons-material/YouTube'
-import './MediaStreamingProviders.sass'
+import './MediaWatchProviders.sass'
+import { type ID } from '@/react/types'
+import { imageBaseUrl } from '@/utils/imageBaseUrl'
 
-const MediaStreamingProviders = (): JSX.Element => {
+interface MediaWatchProvidersProps {
+  providers: {
+    flatrate: Array<{
+      id: ID
+      providerName: string
+      logoPath: string
+    }>
+  }
+}
+
+const MediaWatchProviders: React.FC<MediaWatchProvidersProps> = props => {
+  const { providers } = props
+
+  console.log(providers)
   const { t } = useI18n()
   return (
       <Box
@@ -29,37 +44,35 @@ const MediaStreamingProviders = (): JSX.Element => {
       </Box>
 
       {/* Content */}
-      <Box
+      {providers?.flatrate?.length > 0
+        ? <Box
+        key='flatrate-providers'
         sx={{
           borderBottom: '1px solid #ccc',
-          padding: '8px 16px'
+          padding: '8px 16px',
+          display: 'flex'
         }}
       >
-        <Typography variant="body2">
-          <YouTubeIcon/>&nbsp;
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          borderBottom: '1px solid #ccc',
-          padding: '8px 16px'
-        }}
-      >
-        <Typography variant="body2">
-          <YouTubeIcon/>&nbsp;
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          borderBottom: '1px solid #ccc',
-          padding: '8px 16px'
-        }}
-      >
-        <Typography variant="body2">
-          <YouTubeIcon/>&nbsp;
-        </Typography>
+      <Grid container spacing={1}>
+       {providers.flatrate.map((provider) => (
+          <Grid item xs={3} key={provider.id}>
+            <img src={`${imageBaseUrl.w45}/${provider.logoPath}`} alt={provider.providerName} className='provider-logo'/>
+          </Grid>
+       ))}
+       </Grid>
       </Box>
 
+        : (<Box
+        sx={{
+          borderBottom: '1px solid #ccc',
+          padding: '8px 16px'
+        }}
+        >
+          <Typography variant="body2">
+            -
+          </Typography>
+        </Box>
+          )}
       {/* Footer */}
       <Box
         sx={{
@@ -77,4 +90,4 @@ const MediaStreamingProviders = (): JSX.Element => {
   )
 }
 
-export default MediaStreamingProviders
+export default MediaWatchProviders

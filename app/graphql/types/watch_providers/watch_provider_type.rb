@@ -11,18 +11,38 @@ module Types
       field :flatrate, [Types::WatchProviders::WatchType], null: true
       field :link, String, null: false
       field :rent, [Types::WatchProviders::WatchType], null: true
-    end
 
-    class ProvidersByCountryType < Types::BaseObject
-      field :country_iso, String, null: false, method: :first
-      field :providers, Types::WatchProviders::ProviderType, null: true, method: :last
+      def flatrate
+        p object
+        if object.is_a?(Hash)
+          object['flatrate'] || []
+        else
+          []
+        end
+      end
+
+      def buy
+        if object.is_a?(Hash)
+          object['flatrate'] || []
+        else
+          []
+        end
+      end
+
+      def rent
+        if object.is_a?(Hash)
+          object['flatrate'] || []
+        else
+          []
+        end
+      end
     end
 
     class WatchProviderType < Types::BaseObject
       field :id, ID, null: false
-      field :providers_by_country, [Types::WatchProviders::ProvidersByCountryType], null: true, hash_key: 'results'
-      def providers_by_country
-        object['results'].select { |country, _| country == 'FR' }
+      field :providers, Types::WatchProviders::ProviderType, null: true, hash_key: 'results'
+      def providers
+        object['results'].select { |country, _| country == 'FR' }.values.first
       end
     end
   end

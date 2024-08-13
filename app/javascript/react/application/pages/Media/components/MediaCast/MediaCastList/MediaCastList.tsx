@@ -3,7 +3,7 @@ import useI18n from '@/utils/useI18n'
 import React from 'react'
 import MediaCastItem from '../MediaCastItem/MediaCastItem'
 import MuiDivider from '@/react/application/components/MuiComponents/MuiDivider'
-import { Button, Stack, Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import './MediaCastList.sass'
 import MuiButton from '@/react/application/components/MuiComponents/MuiButton'
 

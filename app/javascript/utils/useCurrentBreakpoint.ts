@@ -1,5 +1,5 @@
-import { useMediaQuery, useTheme } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useMediaQuery, useTheme } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 const useCurrentBreakpoint = () => {
   const theme = useTheme()
