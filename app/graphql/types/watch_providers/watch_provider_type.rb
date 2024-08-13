@@ -15,13 +15,15 @@ module Types
 
     class ProvidersByCountryType < Types::BaseObject
       field :country_iso, String, null: false, method: :first
-
       field :providers, Types::WatchProviders::ProviderType, null: true, method: :last
     end
 
     class WatchProviderType < Types::BaseObject
       field :id, ID, null: false
       field :providers_by_country, [Types::WatchProviders::ProvidersByCountryType], null: true, hash_key: 'results'
+      def providers_by_country
+        object['results'].select { |country, _| country == 'FR' }
+      end
     end
   end
 end
