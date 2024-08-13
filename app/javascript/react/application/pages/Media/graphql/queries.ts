@@ -7,10 +7,18 @@ export const GET_MEDIA = gql`
       ... on Movie {
         ...MovieShowInfo
         watchProviders {
-          rent {
-            providerId
-            providerName
-            logoPath
+          providersByCountry {
+            countryIso
+            providers {
+              flatrate {
+                providerName
+                logoPath
+              }
+              buy {
+                providerName
+                logoPath
+            }
+          }
           }
         }
         credits {
@@ -31,11 +39,19 @@ export const GET_MEDIA = gql`
       ... on Tv {
         ...TvShowInfo
         watchProviders {
-          rent {
-            providerId
-            providerName
-            logoPath
+          providersByCountry {
+            countryIso
+            providers {
+              flatrate {
+                providerName
+                logoPath
+              }
+              buy {
+                providerName
+                logoPath
+            }
           }
+}
         }
         credits {
           id

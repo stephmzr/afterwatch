@@ -57,7 +57,6 @@ module Types
       response = TmdbApi::Media::MediaFetcher.new.get(id, type, options)
       # Add media_type to the response to be able to determine the type of media
       response['media_type'] = type
-      p response.parsed_response
       response.parsed_response
     end
 
