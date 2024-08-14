@@ -10,7 +10,7 @@ interface MediaImageProps {
   width?: string
   rating?: number
   borderRadius?: number
-  renderType?: 'original' | 'w500'
+  renderType?: 'original' | 'w500' | 'w154' | 'w45'
 }
 
 /**
@@ -24,13 +24,13 @@ interface MediaImageProps {
  * @param {string} props.width - The width of the image.
  * @param {number} [props.borderRadius] - The border radius of the image (optional).
  * @param {number} [props.rating] - The rating of the image (optional).
+ * @param {'original' | 'w500' | 'w154' | 'w45'} [props.renderType] - The render type of the image (optional).
  * @returns {JSX.Element} The rendered media image component.
  */
 const MediaImage: React.FC<MediaImageProps> = (props) => {
   const { imageUrl, title, height, width, borderRadius, rating = undefined, renderType = 'original' } = props
   const src = `${imageBaseUrl[renderType]}/${imageUrl}`
- 
-  console.log(src)
+
   return (
     <div className="media-image-container" style={{ height, width }}>
       <img src={src} alt={title} style={{ height, width, borderRadius: borderRadius ?? 0 }} />

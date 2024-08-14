@@ -10,7 +10,6 @@ import { imageBaseUrl } from '@/utils/imageBaseUrl'
 import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
 import { GET_MEDIA } from './graphql/queries'
 import MediaSummary from './components/MediaSummary/MediaSummary'
-import MediaStreamingProviders from './components/MediaWatchProviders/MediaWatchProviders'
 import MediaWatchProviders from './components/MediaWatchProviders/MediaWatchProviders'
 
 const retrieveImg = async (response: any) => {
