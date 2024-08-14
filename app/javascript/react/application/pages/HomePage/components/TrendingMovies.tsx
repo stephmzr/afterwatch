@@ -25,8 +25,8 @@ const TrendingMovies = (): JSX.Element => {
 
   return (
     <div>
-      <Typography variant='h5' gutterBottom>{t('pages.home_page.trending_movies')}</Typography>
-      <MuiDivider style={{ borderColor: 'black' }} />
+      <div className='subtitle'>{t('pages.home_page.trending_movies').toLocaleUpperCase()}</div>
+      <MuiDivider style={{ borderColor: 'black' }} className='subtitle-divider'/>
       {loading
         ? (
           <span className='centered-progress'>
