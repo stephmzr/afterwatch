@@ -14,67 +14,25 @@
  *= require_self
  */
 
+@import './spacing';
+
 @font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia_Pro_Regular_Az.otf') format('opentype');
-  font-weight: normal;
+  font-family: 'Inter';
+  src: url('/assets/fonts/Inter_18pt-Regular.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro Light Italic Az.otf') format('opentype');
-  font-weight: 300;
+  font-family: 'Inter';
+  src: url('/assets/fonts/Inter_18pt-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/fonts/Inter_18pt-Italic.ttf') format('truetype');
+  font-weight: 400;
   font-style: italic;
 }
-
-@font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro UltraLight Az.otf') format('opentype');
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro Bold Az.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro Black Az.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro Light Az.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro Medium Az.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro Semi Bold Az.otf') format('opentype');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sofia Pro';
-  src: url('app/assets/fonts/sofia/Sofia Pro UltraLight Italic Az.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@import './spacing';
