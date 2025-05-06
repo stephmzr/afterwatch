@@ -26,9 +26,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return User.first if Rails.env.development? && params[:skip_auth].present?
+    if Rails.env.development? && params[:skip_auth].present?
+      @current_user = User.first
+      return @current_user
+    end
 
-    super
+    @current_user = super
+    @current_user
   end
 
   def tag_app_signal

@@ -24,9 +24,6 @@
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 
-
-
-
 /* eslint no-console:0 */
 // This file is automatically compiled by Webpack, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
@@ -47,21 +44,21 @@
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
-import { createRoot } from 'react-dom/client';
-import '../assets/stylesheets/global.sass';
-import Rails from "@rails/ujs";
-import React from 'react';
-import App from '../react/application/App';
+import { createRoot } from 'react-dom/client'
+import '../assets/stylesheets/global.sass'
+import Rails from '@rails/ujs'
+import React from 'react'
+import App from '../react/application/App'
 // import * as ActiveStorage from "@rails/activestorage";
 
-// @ts-ignore
-if(!window._rails_loaded) Rails.start();
+if (!window._rails_loaded) Rails.start()
 
-const container = document.getElementById('root');
-const root = createRoot(container!);
+const container = document.getElementById('root')
+const root = createRoot(container!)
+const props = JSON.parse(container?.dataset.props ?? '{}')
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App { ...props } />
   </React.StrictMode>
-);
+)

@@ -22,7 +22,8 @@ module Afterwatch
     config.active_record.yaml_column_permitted_classes = [Symbol]
 
     config.autoload_paths << Rails.root.join('app/lib')
-    
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
     config.i18n.default_locale = :fr
     config.i18n.available_locales = [:fr, :en]
 
