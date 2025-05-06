@@ -2,8 +2,8 @@ import { gql } from '@apollo/client'
 import { MOVIE_SHOW_FRAGMENT, TV_SHOW_FRAGMENT } from './fragments'
 
 export const GET_MEDIA = gql`
-  query media($id: ID!, $type: String!, $options: MediasOptionsAttributes) {
-    media(id: $id, type: $type, options: $options) {
+  query media($id: ID!, $type: String!) {
+    media(id: $id, type: $type) {
       ... on Movie {
         ...MovieShowInfo
         watchProviders {

@@ -10,7 +10,7 @@ const HomePage = (): JSX.Element => {
       <div className={styles.globalSearchContainer}>
         <GlobalSearch />
       </div>
-      <Container component="main" maxWidth='md' sx={{ flexGrow: 1, mt: 2 }}>
+      <Container component="main" maxWidth='md' sx={{ flexGrow: 1, mt: 2 }} disableGutters>
         <TrendingMovies />
       </Container>
     </>

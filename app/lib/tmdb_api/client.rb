@@ -2,8 +2,10 @@ require 'httparty'
 require_relative 'config'
 
 module TmdbApi
-  class HttpClient
+  class Client
     include HTTParty
+
+    attr_accessor :language
 
     def get(url, params)
       response = self.class.get(url, query: params.merge(api_key: API_KEY))

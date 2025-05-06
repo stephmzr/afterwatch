@@ -23,3 +23,24 @@ if input == 'y'
     c.save!
   end
 end
+
+max_page = 10
+client = TmdbApi::Client.new
+client.language = 'fr'
+
+m_api = TmdbApi::Movie.new(client)
+resp = m_api.popular
+movies = []
+
+respo.movies.each do |m|
+  movies << m
+end
+
+until i == 10
+  break unless resp.meta.next.present?
+
+  resp.movies.each do |m|
+    movies << m
+  end
+  i += 1
+end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/500' => "pages#react"
   get '/users' => "pages#react"
   get '/medias/:type/:id' => 'pages#react'
+  get '/medias/:type/:id/cast' => 'pages#react'
   devise_for :users, controllers: { sessions: "sessions", invitations: 'invitations', passwords: 'passwords', registrations: 'registrations' }
   post "/graphql", to: "graphql#execute"
   

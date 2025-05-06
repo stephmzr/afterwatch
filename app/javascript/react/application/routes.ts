@@ -1,5 +1,6 @@
 import InternalServerError from '../shared/components/Errors/InternalServerError'
 import NotFound from '../shared/components/Errors/NotFound'
+import Cast from './pages/Cast/Cast'
 import HomePage from './pages/HomePage/HomePage'
 import MediaShow from './pages/Media/MediaShow'
 
@@ -23,7 +24,13 @@ const routes: Route[] = [
   {
     path: '/medias/:type/:id',
     name: 'medias',
-    component: MediaShow,
+    component: MediaShow as () => JSX.Element,
+    hideInMenu: true
+  },
+  {
+    path: '/medias/:type/:id/cast',
+    name: 'cast',
+    component: Cast,
     hideInMenu: true
   },
   {
@@ -37,6 +44,16 @@ const routes: Route[] = [
     name: 'not_found',
     hideInMenu: true,
     component: InternalServerError
+  },
+  {
+    path: '/movies',
+    name: 'movies',
+    component: HomePage
+  },
+  {
+    path: '/tv',
+    name: 'tv',
+    component: HomePage
   }
 ]
 

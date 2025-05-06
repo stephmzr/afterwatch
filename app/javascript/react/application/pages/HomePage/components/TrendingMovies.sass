@@ -3,7 +3,31 @@
   justify-content: center
   margin-top: 32px
 
+.trending-movies-container
+  position: relative
+  display: flex
+  align-items: center
+
 .trending-movies
-  display: inline-flex
-  justify-content: center 
+  display: flex
   margin-top: 16px
+  overflow-x: auto
+  scrollbar-width: none
+
+.left-arrow
+  position: absolute
+  left: -25px
+  top: 50%
+  transform: translateY(-50%)
+  width: 2rem
+  z-index: 10
+  cursor: pointer
+
+.right-arrow
+  position: absolute
+  right: -36px
+  top: 50%
+  transform: translateY(-50%)
+  width: 2rem
+  z-index: 10
+  cursor: pointer

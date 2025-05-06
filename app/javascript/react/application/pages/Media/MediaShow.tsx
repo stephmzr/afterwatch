@@ -20,7 +20,7 @@ const retrieveImg = async (response: any) => {
 const MediaShow = (): JSX.Element | null => {
   const { id, type } = useParams()
   const { data, loading } = useQuery(GET_MEDIA, {
-    variables: { id, type, options: { credits: true, watchProviders: true } }
+    variables: { id, type }
   })
 
   const media: MediaType = data?.media

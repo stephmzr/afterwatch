@@ -19,7 +19,6 @@ interface MediaWatchProvidersProps {
 const MediaWatchProviders: React.FC<MediaWatchProvidersProps> = props => {
   const { providers } = props
 
-  console.log(providers)
   const { t } = useI18n()
   return (
       <Box

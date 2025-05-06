@@ -44,21 +44,32 @@ module Types
     end
 
     def medias(search: {}, per_page: 5)
-      response = TmdbApi::Media::MediaSearcher.new.search_multi(search[:query])
-      response = response['results'].filter { |media| media['media_type'] == 'movie' || media['media_type'] == 'tv' }
+      response = TmdbApi::Media.new.search_multi(search[:query])
+      return [] unless response && response.items
+
+      # Filter out non-movie and non-tv results
+      response = response.items.filter { |media| media.media_type == 'movie' || media.media_type == 'tv' }
+
       response.first(per_page)
     end
 
     field :media, Types::Medias::MediaType, null: true do
       argument :id, ID, required: true
       argument :type, String, required: true
-      argument :options, InputObject::MediasOptionsAttributes, required: false
     end
-    def media(id:, type:, options: {})
-      response = TmdbApi::Media::MediaFetcher.new.get(id, type, options)
-      # Add media_type to the response to be able to determine the type of media
-      response['media_type'] = type
-      response.parsed_response
+    def media(id:, type:)
+      case type
+      when 'movie'
+        response = TmdbApi::Movie.new.get(id)
+        response.media_type = 'movie'
+        response
+      when 'tv'
+        response = TmdbApi::TvShow.new.get(id)
+        response.media_type = 'tv'
+        response
+      else
+        raise GraphQL::ExecutionError, "Invalid media type: #{type}"
+      end
     end
 
     field :movies, [Types::Movies::MovieType], null: false do
@@ -67,22 +78,34 @@ module Types
     end
 
     def movies(search: {}, per_page: 5)
-      response = TmdbApi::Movie.new.search_movies(search[:query])
-      response['results'].first(per_page)
+      response = TmdbApi::Movie.new.search(search[:query])
+      response.items.first(per_page)
     end
 
     field :movie, Types::Movies::MovieType, null: true do
       argument :id, ID, required: true
     end
     def movie(id:)
-      response = TmdbApi::Movie.new.get(id)
-      response.parsed_response
+      TmdbApi::Movie.new.get(id)
     end
 
     field :trending_movies, [Types::Movies::MovieType], null: false
     def trending_movies
-      response = TmdbApi::Trending::TrendingMediaFetcher.new.get_trending('movie')
-      response['results']
+      TmdbApi::Movie.new.trending.items
+    end
+    
+    field :popular_movies, [Types::Movies::MovieType], null: false
+    def popular_movies
+      TmdbApi::Movie.new.popular.items
+    end
+
+    field :cast, [Types::Credits::CastType], null: false do
+      argument :id, ID, required: true
+      argument :type, String, required: true
+    end
+    def cast(id:, type:)
+      media = TmdbApi::Media::MediaFetcher.new.get(id, type)
+      media.credits.cast
     end
   end
 end

@@ -15,57 +15,53 @@ fr:
         pagination:
           users_found:
             one: 1 utilisateur trouvé
+            other: '%{count} Utilisateurs trouvés'
             zero: Aucun utilisateur trouvé
-            other: "%{count} Utilisateurs trouvés"
         phone: Téléphone fixe
   flashes:
     users:
       create_user:
         success: Votre compte a été créé avec succès
-      update_user:
-        success: L'utilisateur a bien été mis à jour
       update_profile:
         success: Votre profil a été modifié avec succès
+      update_user:
+        success: L'utilisateur a bien été mis à jour
   menu:
-    users: Utilisateurs
     home: Accueil
     profile: Mon compte
     sign_up: Inscription
-  sentences:
-    reset_filters: Réinitialiser les filtres
-    are_you_sure: Êtes-vous sûr ?
-    back_to_list: Retour à la liste
-    edit_password: Modifier mon mot de passe
-    forgotten_password: Mot de passe oublié ?
-    no_movies_found: Aucun film trouvé
-    add_user: Ajouter un utilisateur
-    environment_banner: "Vous êtes actuellement sur l'environnement de %{environment}"
-    search_movie: Rechercher un film
+    users: Utilisateurs
   pages:
     home_page:
       trending_movies: Les tendances
+    internal_server_error:
+      message: Internal server error
     media_show:
       casting: Distribution
-      synopsis: Synopsis
       show_more_cast: Voir toute la distribution
+      synopsis: Synopsis
       where_to_watch: Où regarder ?
+    not_found:
+      message: La page que vous recherchez n'existe pas
     user:
+      edit:
+        title: Édition de l'utilisateur
       index:
         new_user: Ajouter un utilisateur
         search_placeholder: Nom, prénom...
       new:
         title: Nouvel utilisateur
-      edit:
-        title: Édition de l'utilisateur
-    not_found:
-      message: "La page que vous recherchez n'existe pas"
-    internal_server_error:
-      message: "Internal server error"
+  sentences:
+    add_user: Ajouter un utilisateur
+    are_you_sure: Êtes-vous sûr ?
+    back_to_list: Retour à la liste
+    edit_password: Modifier mon mot de passe
+    environment_banner: Vous êtes actuellement sur l'environnement de %{environment}
+    forgotten_password: Mot de passe oublié ?
+    no_movies_found: Aucun film trouvé
+    reset_filters: Réinitialiser les filtres
+    search_movie: Rechercher un film
   words:
-    genders:
-      female: Femme
-      male: Homme
-      not_specified: Non spécifié
     active_m: Actif
     address: Adresse
     age: Age
@@ -81,10 +77,16 @@ fr:
     'false': Non
     female: Femme
     first_name: Prénom
+    genders:
+      female: Femme
+      male: Homme
+      not_specified: Non spécifié
+    id: ID
     last_name: Nom
     login: Se connecter
     male: Homme
     mobile_phone: Numéro de téléphone mobile
+    movies: Films
     name: Nom
     password: Mot de passe
     password_confirmation: Confirmation du mot de passe
@@ -104,4 +106,4 @@ fr:
     to_import: Importer
     to_sign_up: S'inscrire
     'true': Oui
-    id: ID
+    tv: Séries
