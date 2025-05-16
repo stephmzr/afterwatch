@@ -22,6 +22,11 @@ export const MOVIE_FRAGMENT = gql`
     releaseDate
     posterPath
     voteAverage
+    credits {
+      director {
+        name
+      }
+    }
   }
 `;
 

@@ -1,5 +1,5 @@
 import useI18n from '@/utils/useI18n'
-import { Box, Container, Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import React from 'react'
 import YouTubeIcon from '@mui/icons-material/YouTube'
 import './MediaWatchProviders.sass'

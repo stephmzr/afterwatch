@@ -9,7 +9,7 @@ module Types
       possible_types Types::Movies::MovieType, Types::TvShows::TvType
 
       def self.resolve_type(object, context)
-        case object.media_type
+        case object['media_type']
         when 'movie'
           Types::Movies::MovieType
         when 'tv'

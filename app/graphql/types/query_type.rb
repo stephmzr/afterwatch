@@ -43,12 +43,9 @@ module Types
       argument :per_page, Int, required: false
     end
 
-    def medias(search: {}, per_page: 5)
+    def medias(search: {}, per_page: 8)
       response = TmdbApi::Media.new.search_multi(search[:query])
-      return [] unless response && response.items
-
-      # Filter out non-movie and non-tv results
-      response = response.items.filter { |media| media.media_type == 'movie' || media.media_type == 'tv' }
+      return [] unless response 
 
       response.first(per_page)
     end
@@ -104,7 +101,7 @@ module Types
       argument :type, String, required: true
     end
     def cast(id:, type:)
-      media = TmdbApi::Media::MediaFetcher.new.get(id, type)
+      media = TmdbApi::MediaUtils::MediaFetcher.new.get(id, type)
       media.credits.cast
     end
   end

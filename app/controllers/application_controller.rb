@@ -14,11 +14,8 @@ class ApplicationController < ActionController::Base
     return true if Rails.env.development? && params[:skip_auth].present?
 
     super(opts)
-
-    return unless current_user
-
-    last_request_at = Time.zone.now
-    current_user.update(last_request_at:)
+    # last_request_at = Time.zone.now
+    # current_user.update(last_request_at:)
   end
 
   def set_whodunnit

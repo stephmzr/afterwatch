@@ -35,14 +35,14 @@ module TmdbApi
       private
 
       def fetch_credits
-        TmdbApi::Credit::CreditFetcher.new(@client).get(id, 'movie')
+        TmdbApi::CreditUtils::CreditFetcher.new(@client).get(id, 'movie')
       rescue StandardError => e
         Rails.logger.error("Failed to fetch credits for movie ID #{id}: #{e.message}")
         nil
       end
 
       def fetch_watch_providers
-        TmdbApi::WatchProvider::WatchProviderFetcher.new(@client).get(id, 'movie')
+        TmdbApi::WatchProviderUtils::WatchProviderFetcher.new(@client).get(id, 'movie')
       rescue StandardError => e
         Rails.logger.error("Failed to fetch watch providers for movie ID #{id}: #{e.message}")
         nil

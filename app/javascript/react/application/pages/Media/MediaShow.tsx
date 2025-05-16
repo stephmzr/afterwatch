@@ -32,7 +32,7 @@ const MediaShow = (): JSX.Element | null => {
 
     fetch(targetUrl)
       .then(retrieveImg)
-      .then(blob => {
+      .then((blob: Blob) => {
         const img = new Image()
         img.crossOrigin = 'anonymous'
         img.src = URL.createObjectURL(blob)
@@ -59,7 +59,6 @@ const MediaShow = (): JSX.Element | null => {
 
   if (loading) return null
 
-  console.log(media)
   return (
     <>
     <Grid container spacing={0} className='media-show-grid' style={{ background: bgColor ?? '#7D7D7D' }}>
@@ -73,7 +72,6 @@ const MediaShow = (): JSX.Element | null => {
 
       {/* Media summary */}
       <Grid item sm={6} xl={4} className='media-summary'>
-        {/* TODO: MediaSummary */}
         <MediaSummary
           title={media.title}
           releaseDate={media.releaseDate}
@@ -95,12 +93,14 @@ const MediaShow = (): JSX.Element | null => {
         <MediaWatchProviders providers={media?.watchProviders?.providers || []}/>
       </Grid>
       {/* Media cast list */}
-      <Grid item sm={6} xl={4}>
-        <Container maxWidth='md' sx={{ flexGrow: 1, mt: 2, ml: 0 }} disableGutters>
-          <MediaCastList cast={media.credits.cast} />
-        </Container>
+      {media.credits.cast.length > 0 && (
+        <Grid item sm={6} xl={4}>
+          <Container maxWidth='md' sx={{ flexGrow: 1, mt: 2, ml: 0 }} disableGutters>
+            <MediaCastList cast={media.credits.cast} />
+          </Container>
+        </Grid>
+      )}
       </Grid>
-    </Grid>
     </>
   )
 }

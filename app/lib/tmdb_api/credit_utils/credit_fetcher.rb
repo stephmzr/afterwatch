@@ -1,8 +1,7 @@
-require_relative '../client'
-require_relative '../config'
+# frozen_string_literal: true
 
 module TmdbApi
-  module Credit
+  module CreditUtils
     class CreditFetcher
       def initialize(client = nil)
         @client = client || TmdbApi::Client.new

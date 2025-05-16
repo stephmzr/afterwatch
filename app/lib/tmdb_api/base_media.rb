@@ -1,5 +1,3 @@
-require_relative 'config'
-
 module TmdbApi
   class BaseMedia
     def initialize(client = nil)
@@ -41,32 +39,24 @@ module TmdbApi
     private
 
     def media_fetcher
-      TmdbApi::Media::MediaFetcher.new(@client)
-    end
-
-    def media_searcher
-      TmdbApi::Media::MediaSearcher.new(@client)
+      TmdbApi::MediaUtils::MediaFetcher.new(@client)
     end
 
     def prepare_items(results)
-      results.map do |result|
-        item = response_class.prepare(result)
-        item.client = @client
-        item
-      end
+      results.map { |result| response_class.prepare(result) }
     end
 
     def prepare_meta(response, page, prev_lambda, next_lambda)
       TmdbApi::Response::Meta.prepare({
-                                        page: response['page'],
-                                        total_pages: response['total_pages'],
-                                        total: response['total_results'],
-                                        prev: page > 1 ? prev_lambda : nil,
-                                        next: page < response['total_pages'] ? next_lambda : nil
-                                      })
+        page: response['page'],
+        total_pages: response['total_pages'],
+        total: response['total_results'],
+        prev: page > 1 ? prev_lambda : nil,
+        next: page < response['total_pages'] ? next_lambda : nil
+      })
     end
 
-    # These methods should be overridden in subclasses
+    # These methods must be overridden in subclasses
     def media_type
       raise NotImplementedError, 'Subclasses must define media_type'
     end

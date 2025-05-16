@@ -1,6 +1,6 @@
 import { Backdrop, Box, Typography } from '@mui/material'
 import MuiSearchInput from '@components/MuiComponents/MuiSearchInput'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { gql, useLazyQuery } from '@apollo/client'
 import useI18n from '@/utils/useI18n'
 import { type MediaType } from '@/react/types'
@@ -9,6 +9,7 @@ import MuiAutocomplete from '@components/MuiComponents/MuiAutocomplete'
 import { useNavigate } from 'react-router-dom'
 import MediaImage from '../../../components/MediaImage'
 import dayjs from '@/utils/dayjs'
+import { debounce } from 'lodash'
 
 const SEARCH_MEDIAS = gql`
   query medias($search: SearchMediasAttributes!, $perPage: Int) {
@@ -35,8 +36,15 @@ const GlobalSearch = (): JSX.Element => {
   const [getMedias, { data }] = useLazyQuery(SEARCH_MEDIAS)
   const [open, setOpen] = useState<boolean>(false)
 
+  const debouncedSearch = useCallback(
+    debounce((query: string) => {
+      getMedias({ variables: { search: { query } } })
+    }, 300),
+    []
+  )
+
   const handleInputChange = (event, newInputValue): void => {
-    getMedias({ variables: { search: { query: newInputValue } } })
+    debouncedSearch(newInputValue)
   }
 
   const mediaOptions = data?.medias.map((media: MediaType & { __typename: string }) => ({

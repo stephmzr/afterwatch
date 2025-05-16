@@ -77,7 +77,6 @@ const AvatarMenu: React.FC<AvatarMenuProps> = (props) => {
         <MenuItem onClick={() => { onRouteChange('/sign_out'); handleMenuClose() }}>
           <ListItemIcon>
             <Logout fontSize="small" />
-
           </ListItemIcon>
           <Typography fontSize={16}>{t('words.sign_out')}</Typography>
         </MenuItem>

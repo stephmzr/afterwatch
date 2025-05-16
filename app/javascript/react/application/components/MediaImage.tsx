@@ -36,7 +36,7 @@ const MediaImage: React.FC<MediaImageProps> = (props) => {
       <img src={src} alt={title} style={{ height, width, borderRadius: borderRadius ?? 0 }} />
       {rating !== undefined && (
         <div className="media-rating-overlay">
-          <MediaRating rating={rating} width='44px' height='25px' fontSize={14} />
+          <MediaRating rating={rating} size="small" />
         </div>
       )}
     </div>

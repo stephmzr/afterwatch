@@ -74,7 +74,7 @@ const MediaSummary: React.FC<MediaSummaryProps> = ({
     <Typography variant="body1" className='media-overview'>{overview}</Typography>
     <Stack direction='row' justifyContent='space-between'>
       <span></span>
-      <MediaRating rating={voteAverage} margin={tagline ? RATING_NO_MARGIN : RATING_DEFAULT_MARGIN} />
+      <MediaRating rating={voteAverage} margin={tagline ? RATING_NO_MARGIN : RATING_DEFAULT_MARGIN} size='large' />
     </Stack>
     </>
   )

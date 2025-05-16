@@ -18,8 +18,12 @@ module TmdbApi
       case response.code
       when 200
         response
+      when 404
+        raise TmdbApi::Error::NotFoundError, "Resource not found: #{response.message}"
+      when 500..599
+        raise TmdbApi::Error::ServerError, "Server error: #{response.message}"
       else
-        raise "HTTP Error: #{response.code} - #{response.message}"
+        raise TmdbApi::Error::ClientError, "HTTP Error: #{response.code} - #{response.message}"
       end
     end
   end
