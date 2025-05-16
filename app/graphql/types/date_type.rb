@@ -9,7 +9,7 @@ module Types
     end
 
     def self.coerce_result(value, _context)
-      value.to_date.to_fs
+      value&.to_date&.to_fs
     end
   end
 end

@@ -43,27 +43,6 @@ const SIZES: Record<RatingSize, SizeConfig> = {
   }
 }
 
-interface ItemProps {
-  height?: string
-  width?: string
-  margin?: string
-  borderRadius?: number
-  borderWidth?: number
-}
-
-const Item = styled(Paper)<ItemProps>(({ theme, height, width, margin, borderRadius, borderWidth }) => ({
-  ...theme.typography.body2,
-  border: `${borderWidth}px solid #5D5D5D`,
-  textAlign: 'center',
-  color: theme.palette.secondary.main,
-  height: height ?? '50px',
-  width: width ?? '80px',
-  borderRadius: borderRadius ?? 12,
-  alignContent: 'center',
-  background: '#050505',
-  margin
-}))
-
 interface MediaRatingProps {
   rating: number
   size?: RatingSize
@@ -90,15 +69,25 @@ const MediaRating = ({
   const finalFontSize = customSize?.fontSize ?? sizeConfig.fontSize
 
   return (
-    <Item
-      height={finalHeight}
-      width={finalWidth}
-      margin={margin}
-      borderRadius={sizeConfig.borderRadius}
-      borderWidth={sizeConfig.borderWidth}
+    <Paper
+      sx={{
+        border: `${sizeConfig.borderWidth}px solid #5D5D5D`,
+        textAlign: 'center',
+        color: 'secondary.main',
+        height: finalHeight,
+        width: finalWidth,
+        borderRadius: sizeConfig.borderRadius,
+        background: '#050505',
+        margin,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
     >
-      <span className='is-bold' style={{ fontSize: finalFontSize }}>{roundedRating}</span>
-    </Item>
+      <span className='is-bold' style={{ fontSize: finalFontSize }}>
+        {roundedRating}
+      </span>
+    </Paper>
   )
 }
 

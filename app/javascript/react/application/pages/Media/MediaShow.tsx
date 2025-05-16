@@ -5,17 +5,11 @@ import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { type MediaType } from '@/react/types'
 import MediaImage from '../../components/MediaImage'
-import { extractColors } from 'extract-colors'
-import { imageBaseUrl } from '@/utils/imageBaseUrl'
 import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
 import { GET_MEDIA } from './graphql/queries'
 import MediaSummary from './components/MediaSummary/MediaSummary'
 import MediaWatchProviders from './components/MediaWatchProviders/MediaWatchProviders'
-
-const retrieveImg = async (response: any) => {
-  const image = await response.blob()
-  return image
-}
+import { useBackgroundColor } from '@/react/hooks/useBackgroundColor'
 
 const MediaShow = (): JSX.Element | null => {
   const { id, type } = useParams()
@@ -24,44 +18,22 @@ const MediaShow = (): JSX.Element | null => {
   })
 
   const media: MediaType = data?.media
+  const { backgroundColor, textColor } = useBackgroundColor(media?.posterPath)
 
-  const [bgColor, setBgColor] = useState<string | null>(null)
-
-  const processImage = useCallback((posterPath: string) => {
-    const targetUrl = `${imageBaseUrl.original}/${posterPath}`
-
-    fetch(targetUrl)
-      .then(retrieveImg)
-      .then((blob: Blob) => {
-        const img = new Image()
-        img.crossOrigin = 'anonymous'
-        img.src = URL.createObjectURL(blob)
-        img.onload = () => {
-          extractColors(img)
-            .then(colors => {
-              const maxAreaColor = colors.reduce((max, color) => color.area > max.area ? color : max, colors[0])
-              setBgColor(maxAreaColor.hex)
-            })
-            .catch(console.error)
-        }
-        img.onerror = (error) => {
-          console.error('Image failed to load', error)
-        }
-      })
-      .catch(console.error)
-  }, [])
-
-  useEffect(() => {
-    if (media?.posterPath) {
-      processImage(media.posterPath)
-    }
-  }, [media?.posterPath, processImage])
 
   if (loading) return null
 
   return (
     <>
-    <Grid container spacing={0} className='media-show-grid' style={{ background: bgColor ?? '#7D7D7D' }}>
+    <Grid
+      container
+      spacing={0}
+      className='media-show-grid'
+      style={{
+        background: backgroundColor,
+        color: textColor
+      }}
+    >
       {/* Empty space on the left */}
       <Grid item xl={2} sm={0}/>
 
@@ -71,7 +43,7 @@ const MediaShow = (): JSX.Element | null => {
       </Grid>
 
       {/* Media summary */}
-      <Grid item sm={6} xl={4} className='media-summary'>
+      <Grid item sm={6} xl={4}>
         <MediaSummary
           title={media.title}
           releaseDate={media.releaseDate}
@@ -81,6 +53,7 @@ const MediaShow = (): JSX.Element | null => {
           tagline={media.tagline}
           overview={media.overview}
           voteAverage={media.voteAverage}
+          textColor={textColor}
         />
       </Grid>
     </Grid>
