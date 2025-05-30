@@ -9,7 +9,7 @@ module TmdbApi
         return @credits if defined?(@credits)
 
         credits_response = fetch_credits
-        return nil if credits_response.nil?
+        return nil if credits_response.body.nil?
 
         @credits = TmdbApi::Response::Credit.new
         @credits.id = credits_response[ID_KEY]

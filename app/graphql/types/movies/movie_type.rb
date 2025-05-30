@@ -4,9 +4,9 @@ module Types
       field :backdrop_path, String
       field :credits, Types::Credits::CreditType
       field :genres, [Types::Medias::GenreType]
-      field :watch_providers, Types::WatchProviders::WatchProviderType
       field :id, ID
       field :original_language, String
+      field :original_title, String
       field :overview, String
       field :poster_path, String
       field :release_date, Types::DateType
@@ -14,6 +14,7 @@ module Types
       field :tagline, String
       field :title, String
       field :vote_average, Float
+      field :watch_providers, Types::WatchProviders::WatchProviderType
     end
   end
 end

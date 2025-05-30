@@ -81,11 +81,11 @@ const MediaSummary: React.FC<MediaSummaryProps> = ({
   return (
     <>
       <h1>
-      <Stack direction='row' gap={2}>
-        <StyledTitle color={textColor}>{title}</StyledTitle>
-        <StyledText color={textColor} fontSize='34px'>({dayjs(releaseDate, 'DD/MM/YYYY').year()})</StyledText>
-      </Stack>
-    </h1>
+        <Stack direction='row' gap={2}>
+          <StyledTitle color={textColor}>{title}</StyledTitle>
+          <StyledText color={textColor} fontSize='34px'>({dayjs(releaseDate, 'DD/MM/YYYY').year()})</StyledText>
+        </Stack>
+      </h1>
     <p>
       {releaseDate.toString()} ({originalLanguage.toUpperCase()}) - {genres.map((genre) => genre.name).join(', ')} - {runtime} min
     </p>

@@ -10,6 +10,7 @@ module Types
       field :id, ID
       field :name, String
       field :original_language, String
+      field :original_name, String
       field :overview, String
       field :poster_path, String
       field :tagline, String

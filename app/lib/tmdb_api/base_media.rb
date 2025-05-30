@@ -24,7 +24,8 @@ module TmdbApi
       return nil unless response && response['results']
 
       items = prepare_items(response['results'])
-      TmdbApi::Response::Response.prepare({ items:, meta: nil })
+      meta = prepare_meta(response, 1, -> { trending(time_window) }, -> { trending(time_window) })
+      TmdbApi::Response::Response.prepare({ items:, meta: })
     rescue StandardError => e
       Rails.logger.error("Failed to fetch trending #{media_type}: #{e.message}")
       nil

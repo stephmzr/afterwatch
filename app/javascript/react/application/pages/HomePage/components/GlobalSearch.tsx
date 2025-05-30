@@ -7,7 +7,7 @@ import { type MediaType } from '@/react/types'
 import './GlobalSearch.sass'
 import MuiAutocomplete from '@components/MuiComponents/MuiAutocomplete'
 import { useNavigate } from 'react-router-dom'
-import MediaImage from '../../../components/MediaImage'
+import MediaImage from '../../../components/MediaImage/MediaImage'
 import dayjs from '@/utils/dayjs'
 import { debounce } from 'lodash'
 

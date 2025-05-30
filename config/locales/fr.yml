@@ -33,7 +33,9 @@ fr:
     users: Utilisateurs
   pages:
     home_page:
+      activity: Activité
       trending_movies: Les tendances
+      upcoming_movies: Films à venir
     internal_server_error:
       message: Internal server error
     media_show:

@@ -3,7 +3,7 @@ import { Popover, Box, Typography, Stack, Chip, Menu } from '@mui/material'
 import { type MovieType } from '@/react/types'
 import dayjs from '@/utils/dayjs'
 import MediaRating from '@/react/application/components/MediaRating'
-import MediaImage from '@/react/application/components/MediaImage'
+import MediaImage from '@/react/application/components/MediaImage/MediaImage'
 
 interface MoviePopoverProps {
   movie: MovieType

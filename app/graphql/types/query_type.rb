@@ -39,12 +39,13 @@ module Types
     end
 
     field :medias, [Types::Medias::MediaType], null: false do
-      argument :search, InputObject::SearchMediasAttributes, required: true
+      argument :page, Int, required: false
       argument :per_page, Int, required: false
+      argument :search, InputObject::SearchMediasAttributes, required: true
     end
 
-    def medias(search: {}, per_page: 8)
-      response = TmdbApi::Media.new.search_multi(search[:query])
+    def medias(search: {}, page: 1, per_page: 8)
+      response = TmdbApi::Media.new.search_multi(search[:query], page, per_page)
       return [] unless response 
 
       response.first(per_page)

@@ -1,29 +1,31 @@
 import React from 'react'
 import TrendingMovies from './components/TrendingMovies'
-import GlobalSearch from './components/GlobalSearch'
-import { Container } from '@mui/material'
-import styles from './HomePage.module.sass'
+import { Container, Box } from '@mui/material'
+import Activity from './components/Activity/Activity'
 
 const HomePage = (): JSX.Element => {
   return (
-    <>
-      <div className={styles.globalSearchContainer}>
-        <GlobalSearch />
-      </div>
-      <Container
-        component="main"
-        maxWidth="md"
-        sx={{
-          flexGrow: 1,
-          mt: 2,
-          px: { xs: 2, sm: 3, md: 4 },
-          maxWidth: { xs: '100%', sm: '90%', md: '80%' }
-        }}
-        disableGutters
-      >
+    <Container
+      component="main"
+      maxWidth="lg"
+      sx={{
+        flexGrow: 1,
+        mt: 4,
+        px: { xs: 2, sm: 3, md: 4 },
+        maxWidth: { xs: '100%', sm: '90%', md: '85%', lg: '90%' }
+      }}
+      disableGutters
+    >
+      {/* Carousel principal */}
+      <Box sx={{ mb: 6 }}>
         <TrendingMovies />
-      </Container>
-    </>
+      </Box>
+
+      {/* Activité des amis */}
+      <Box>
+        <Activity />
+      </Box>
+    </Container>
   )
 }
 

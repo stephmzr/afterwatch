@@ -1,4 +1,4 @@
-import MediaImage from '@/react/application/components/MediaImage'
+import MediaImage from '@/react/application/components/MediaImage/MediaImage'
 import { type MovieType } from '@/react/types'
 import React, { useCallback, useState, useEffect } from 'react'
 import './TrendingMovieItem.sass'
