@@ -4,10 +4,10 @@ module Types
       field :backdrop_path, String
       field :credits, Types::Credits::CreditType
       field :episode_run_time, [Int]
-      field :watch_providers, Types::WatchProviders::WatchProviderType
       field :first_air_date, Types::DateType
       field :genres, [Types::Medias::GenreType]
       field :id, ID
+      field :media_type, String, null: false
       field :name, String
       field :original_language, String
       field :original_name, String
@@ -15,6 +15,10 @@ module Types
       field :poster_path, String
       field :tagline, String
       field :vote_average, Float
+      field :watch_providers, Types::WatchProviders::WatchProviderType
+      def media_type
+        'tv'
+      end
     end
   end
 end

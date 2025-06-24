@@ -15,6 +15,15 @@ module Types
       field :title, String
       field :vote_average, Float
       field :watch_providers, Types::WatchProviders::WatchProviderType
+      field :media_type, String, null: false
+      def media_type
+        'movie'
+      end
+
+      def credits
+        # Utiliser le DataLoader pour éviter les N+1 queries
+        Loaders::CreditsLoader.for('movie').load(object.id)
+      end
     end
   end
 end

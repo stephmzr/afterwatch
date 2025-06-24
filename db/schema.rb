@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_30_103908) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_23_152725) do
+  create_table "activities", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "activity_type", null: false
+    t.integer "tmdb_id", null: false
+    t.string "media_type", null: false
+    t.text "metadata", size: :long, collation: "utf8mb4_bin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_type"], name: "index_activities_on_activity_type"
+    t.index ["tmdb_id", "media_type"], name: "index_activities_on_tmdb_id_and_media_type"
+    t.index ["user_id", "created_at"], name: "index_activities_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_activities_on_user_id"
+    t.check_constraint "json_valid(`metadata`)", name: "metadata"
+  end
+
   create_table "jobs_dashboard_job_logs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "sidekiq_jid", null: false
     t.string "status"
@@ -27,6 +42,45 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_103908) do
     t.datetime "updated_at", null: false
     t.index ["sidekiq_jid"], name: "index_jobs_dashboard_job_logs_on_sidekiq_jid", unique: true
     t.index ["updated_at"], name: "index_jobs_dashboard_job_logs_on_updated_at"
+  end
+
+  create_table "user_ratings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "tmdb_id", null: false
+    t.string "media_type", null: false
+    t.integer "rating", null: false
+    t.text "review"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rating"], name: "index_user_ratings_on_rating"
+    t.index ["tmdb_id", "media_type"], name: "index_user_ratings_on_tmdb_id_and_media_type"
+    t.index ["user_id", "tmdb_id", "media_type"], name: "index_user_ratings_on_user_and_media", unique: true
+    t.index ["user_id"], name: "index_user_ratings_on_user_id"
+  end
+
+  create_table "user_watch_histories", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "tmdb_id", null: false
+    t.string "media_type", null: false
+    t.string "status", null: false
+    t.datetime "watched_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_user_watch_histories_on_status"
+    t.index ["tmdb_id", "media_type"], name: "index_user_watch_histories_on_tmdb_id_and_media_type"
+    t.index ["user_id", "tmdb_id", "media_type"], name: "index_user_watch_histories_on_user_and_media", unique: true
+    t.index ["user_id"], name: "index_user_watch_histories_on_user_id"
+  end
+
+  create_table "user_watchlists", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "tmdb_id", null: false
+    t.string "media_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tmdb_id", "media_type"], name: "index_user_watchlists_on_tmdb_id_and_media_type"
+    t.index ["user_id", "tmdb_id", "media_type"], name: "index_user_watchlists_on_user_and_media", unique: true
+    t.index ["user_id"], name: "index_user_watchlists_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -53,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_103908) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "versions", charset: "utf8mb4", force: :cascade do |t|
     t.string "item_type", null: false
     t.bigint "item_id", null: false
     t.string "event", null: false
@@ -64,4 +118,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_103908) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "activities", "users"
+  add_foreign_key "user_ratings", "users"
+  add_foreign_key "user_watch_histories", "users"
+  add_foreign_key "user_watchlists", "users"
 end

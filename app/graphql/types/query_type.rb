@@ -89,7 +89,9 @@ module Types
 
     field :trending_movies, [Types::Movies::MovieType], null: false
     def trending_movies
-      TmdbApi::Movie.new.trending.items
+      Rails.cache.fetch("graphql:trending_movies", expires_in: 30.minutes) do
+        TmdbApi::Movie.new.trending.items
+      end
     end
     
     field :popular_movies, [Types::Movies::MovieType], null: false
@@ -104,6 +106,50 @@ module Types
     def cast(id:, type:)
       media = TmdbApi::MediaUtils::MediaFetcher.new.get(id, type)
       media.credits.cast
+    end
+
+    # User Activity Queries
+    field :activities, [Types::ActivityType], null: false do
+      argument :limit, Int, required: false, default_value: 20
+      argument :user_id, ID, required: false
+    end
+    def activities(limit:, user_id: nil)
+      return [] unless context[:current_user]
+      
+      user = user_id ? User.find(user_id) : context[:current_user]
+      ::UserActivityService.get_recent_activities(user: user, limit: limit)
+    end
+
+    field :my_watchlist, [Types::UserWatchlistType], null: false do
+      argument :media_type, String, required: false
+    end
+    def my_watchlist(media_type: nil)
+      return [] unless context[:current_user]
+      
+      ::UserActivityService.get_watchlist(user: context[:current_user], media_type: media_type)
+    end
+
+    field :my_ratings, [Types::UserRatingType], null: false do
+      argument :media_type, String, required: false
+    end
+    def my_ratings(media_type: nil)
+      return [] unless context[:current_user]
+      
+      ::UserActivityService.get_ratings(user: context[:current_user], media_type: media_type)
+    end
+
+    # Check if user has interacted with a media
+    field :user_media_status, Types::UserMediaStatusType, null: true do
+      argument :tmdb_id, ID, required: true
+      argument :media_type, String, required: true
+    end
+    def user_media_status(tmdb_id:, media_type:)
+      return nil unless context[:current_user]
+      
+      {
+        in_watchlist: UserActivityService.in_watchlist?(user: context[:current_user], tmdb_id: tmdb_id, media_type: media_type),
+        has_rated: UserActivityService.has_rated?(user: context[:current_user], tmdb_id: tmdb_id, media_type: media_type)
+      }
     end
   end
 end

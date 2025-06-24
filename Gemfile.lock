@@ -177,6 +177,9 @@ GEM
       railties
       sprockets-rails
     graphql (1.13.20)
+    graphql-batch (0.6.0)
+      graphql (>= 1.12.18, < 3)
+      promise.rb (~> 0.7.2)
     htmlentities (4.3.4)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
@@ -271,6 +274,7 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
+    promise.rb (0.7.4)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -502,6 +506,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   caxlsx
   caxlsx_rails
+  concurrent-ruby
   countries (~> 5.0.1)
   database_cleaner-active_record (~> 1.99)
   devise
@@ -512,6 +517,7 @@ DEPENDENCIES
   goldiloader
   graphiql-rails
   graphql (< 2)
+  graphql-batch
   httparty
   image_processing (~> 1.2)
   interactor-rails

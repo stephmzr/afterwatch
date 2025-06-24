@@ -38,8 +38,6 @@ const TrendingMovies = (): JSX.Element => {
 
   return (
     <div>
-      <div className='subtitle'>{t('pages.home_page.trending_movies').toLocaleUpperCase()}</div>
-      <MuiDivider style={{ borderColor: 'black' }} className='subtitle-divider'/>
       {loading
         ? (
           <span className='centered-progress'>

@@ -64,10 +64,12 @@ export interface GenreType {
 // Extend the base interface for specific media types
 export interface MovieType extends BaseMediaType {
   type: string
+  originalTitle?: string
 }
 
 export interface TvShowType extends BaseMediaType {
   type: string
+  originalTitle?: string
 }
 
 // Union type for flexibility

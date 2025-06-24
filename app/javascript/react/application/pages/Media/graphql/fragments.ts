@@ -11,6 +11,7 @@ export const MOVIE_SHOW_FRAGMENT = gql`
     runtime
     tagline
     voteAverage
+    mediaType
     genres {
       id
       name

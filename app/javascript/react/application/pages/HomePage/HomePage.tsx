@@ -22,8 +22,10 @@ const HomePage = (): JSX.Element => {
       </Box>
 
       {/* Activité des amis */}
-      <Box>
-        <Activity />
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ maxWidth: '900px', width: '100%' }}>
+          <Activity />
+        </Box>
       </Box>
     </Container>
   )

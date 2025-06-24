@@ -26,13 +26,17 @@
 #  updated_at             :datetime         not null
 #
 class User < ApplicationRecord
-  include Versionable
   include AuditableConcern
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
   devise :database_authenticatable, :rememberable, :validatable, :trackable
+
+  # Associations for user activities
+  has_many :user_watchlists, dependent: :destroy
+  has_many :user_ratings, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   strip_attributes only: %i[email first_name last_name]
 

@@ -13,6 +13,7 @@ interface MediaImageProps {
   renderType?: 'original' | 'w500' | 'w154' | 'w45'
   onClick?: () => void
   fallbackSrc?: string
+  ratingSize?: 'small' | 'large'
 }
 
 /**
@@ -29,6 +30,7 @@ interface MediaImageProps {
  * @param {'original' | 'w500' | 'w154' | 'w45'} [props.renderType] - The render type of the image (optional).
  * @param {function} [props.onClick] - Click handler (optional).
  * @param {string} [props.fallbackSrc] - Fallback image URL (optional).
+ * @param {'small' | 'large'} [props.ratingSize] - The size of the rating (optional).
  * @returns {JSX.Element} The rendered media image component.
  */
 const MediaImage: React.FC<MediaImageProps> = (props) => {
@@ -39,12 +41,12 @@ const MediaImage: React.FC<MediaImageProps> = (props) => {
     width,
     borderRadius,
     rating = undefined,
+    ratingSize = 'small',
     renderType = 'original',
     onClick,
-    fallbackSrc = '/default-poster.jpg'
+    fallbackSrc = '/assets/images/media-poster-placeholder.png'
   } = props
 
-  // Improved source URL generation with fallback
   const getSrc = (): string => {
     if (!imageUrl) return fallbackSrc
     return `${imageBaseUrl[renderType]}/${imageUrl}`
@@ -68,7 +70,7 @@ const MediaImage: React.FC<MediaImageProps> = (props) => {
       />
       {rating !== undefined && (
         <div className="media-rating-overlay">
-          <MediaRating rating={rating} size="small" />
+          <MediaRating rating={rating} size={ratingSize} />
         </div>
       )}
     </div>

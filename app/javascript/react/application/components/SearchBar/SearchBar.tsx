@@ -157,7 +157,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   }
 
   const handleSearchBlur = useCallback((): void => {
-    // Delay to allow click on results
     setTimeout(() => {
       setIsSearchFocused(false)
       setAnchorEl(null)
@@ -182,9 +181,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setIsSearchFocused(false)
   }, [onResultClick, navigate, clearSearch])
 
-  const showResults = isSearchFocused && searchValue.length > 0 && (results.length > 0 || loading)
+  const showResults = isSearchFocused && searchValue.length > 0
 
-  const renderMediaItem = (media: MediaType & { __typename: string, originalTitle?: string }): JSX.Element => {
+  const renderMediaItem = (media: MediaType & { __typename: string }): JSX.Element => {
     const mediaType = media.__typename === 'Movie' ? 'Film' : 'Série'
     const year = dayjs(media.releaseDate, 'DD/MM/YYYY').year()
 
@@ -264,7 +263,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </ClearButton>
         )}
       </SearchContainer>
-
       <Popper
         open={showResults}
         anchorEl={anchorEl}
@@ -282,9 +280,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 ? (
                     <LoadingContainer>
                       <CircularProgress size={24} sx={{ mr: 2 }} />
-                      <Typography variant="body2">
-                        {t('sentences.searching', { defaultValue: 'Recherche en cours...' })}
-                      </Typography>
                     </LoadingContainer>
                   )
                 : results.length > 0

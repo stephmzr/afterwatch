@@ -6,6 +6,7 @@ class AfterwatchSchema < GraphQL::Schema
 
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader
+  use GraphQL::Batch
 
   disable_introspection_entry_points unless Rails.env.development?
   max_complexity 100

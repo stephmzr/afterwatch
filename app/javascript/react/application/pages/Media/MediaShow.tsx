@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import './styles/MediaShow.sass'
-import { Container, Grid, useTheme } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { type MediaType } from '@/react/types'
@@ -9,6 +9,7 @@ import MediaCastList from './components/MediaCast/MediaCastList/MediaCastList'
 import { GET_MEDIA } from './graphql/queries'
 import MediaSummary from './components/MediaSummary/MediaSummary'
 import MediaWatchProviders from './components/MediaWatchProviders/MediaWatchProviders'
+import MediaActions from './components/MediaActions/MediaActions'
 import { useBackgroundColor } from '@/react/hooks/useBackgroundColor'
 import useCurrentBreakpoint from '@/utils/useCurrentBreakpoint'
 
@@ -40,7 +41,7 @@ const MediaShow = (): JSX.Element | null => {
 
       {/* Media poster */}
       <Grid item sm={12} md={4} lg={4} xl={2} className='media-poster'>
-        <MediaImage imageUrl={media.posterPath} title={media.title} height='343px' width='228px' />
+        <MediaImage imageUrl={media.posterPath} title={media.title} height='343px' width='228px' rating={media.voteAverage} ratingSize='large' />
       </Grid>
 
       {/* Media summary */}
@@ -56,6 +57,8 @@ const MediaShow = (): JSX.Element | null => {
           voteAverage={media.voteAverage}
           textColor={textColor}
         />
+        {/* User Actions */}
+        <MediaActions media={media} />
       </Grid>
     </Grid>
     <Grid container spacing={0}>
