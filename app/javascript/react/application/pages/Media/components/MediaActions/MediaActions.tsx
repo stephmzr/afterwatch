@@ -89,7 +89,7 @@ const MediaActions = ({ media }: MediaActionsProps): JSX.Element => {
   const [addToWatchlist] = useMutation(ADD_TO_WATCHLIST)
   const [removeFromWatchlist] = useMutation(REMOVE_FROM_WATCHLIST)
   const [rateMedia] = useMutation(RATE_MEDIA)
-  console.log(media)
+
   const handleWatchlistToggle = async (): Promise<void> => {
     try {
       if (userStatus.inWatchlist) {
