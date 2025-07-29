@@ -13,7 +13,6 @@ module Types
       field :rent, [Types::WatchProviders::WatchType], null: true
 
       def flatrate
-        p object
         if object.is_a?(Hash)
           object['flatrate'] || []
         else

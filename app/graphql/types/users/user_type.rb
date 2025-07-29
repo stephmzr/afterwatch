@@ -19,7 +19,6 @@ module Types
       field :id, ID, null: true, description: 'ID'
       field :last_name, String, null: true
       field :last_request_at, TimeType, null: true
-      field :versions_to_array, [Types::VersionType], null: true
     end
   end
 end

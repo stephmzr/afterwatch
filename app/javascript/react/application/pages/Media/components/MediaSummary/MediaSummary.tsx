@@ -2,13 +2,12 @@ import { Grid, Stack, styled, Typography } from '@mui/material'
 import React from 'react'
 import dayjs from '@/utils/dayjs'
 import MediaRating from '@/react/application/components/MediaRating'
-import StarIcon from '@mui/icons-material/Star'
-import BookmarkIcon from '@mui/icons-material/Bookmark'
-import ListIcon from '@mui/icons-material/List'
-import { type GenreType } from '@/react/types'
+import { MediaActionsInline } from '../MediaActions/MediaActions'
+import { type GenreType, type MediaType } from '@/react/types'
 import './MediaSummary.sass'
 
 interface MediaSummaryProps {
+  media: MediaType
   title: string
   releaseDate: Date
   originalLanguage: string
@@ -51,6 +50,7 @@ const StyledOverview = styled(Typography)<{ color: string }>(({ color }) => ({
  * @returns {JSX.Element} The rendered MediaSummary component.
  */
 const MediaSummary: React.FC<MediaSummaryProps> = ({
+  media,
   title,
   releaseDate,
   originalLanguage,
@@ -74,34 +74,16 @@ const MediaSummary: React.FC<MediaSummaryProps> = ({
           <StyledText color={textColor} fontSize='34px'>({dayjs(releaseDate, 'DD/MM/YYYY').year()})</StyledText>
         </Stack>
       </h1> 
-    <p>
-      {releaseDate.toString()} ({originalLanguage.toUpperCase()}) - {genres.map((genre) => genre.name).join(', ')} - {runtime} min
-    </p>
-    <div>
-    <span>
-      <Grid container spacing={3}>
-        <Grid item className='flex-centered'>
-          <StarIcon className='icon'/><Typography style={{ color: textColor }}>452</Typography>
-        </Grid>
-        <Grid item className='flex-centered'>
-          <BookmarkIcon className='icon'/><Typography style={{ color: textColor }}>34</Typography>
-      </Grid>
-        <Grid item className='flex-centered'>
-          <ListIcon className='icon'/><Typography style={{ color: textColor }}>12</Typography>
-        </Grid>
-      </Grid>
-      </span>
-    </div>
-    <StyledTagline color={textColor}>{tagline}</StyledTagline>
-    <StyledOverview color={textColor} className="media-overview">{overview}</StyledOverview>
-    {/* <Stack direction='row' justifyContent='space-between'>
-      <span></span>
-      <MediaRating
-        rating={voteAverage}
-        margin={tagline ? RATING_NO_MARGIN : RATING_DEFAULT_MARGIN}
-        size='large'
-      />
-      </Stack> */}
+      <p>
+        {releaseDate.toString()} ({originalLanguage.toUpperCase()}) - {genres.map((genre) => genre.name).join(', ')} - {runtime} min
+      </p>
+      
+      <StyledTagline color={textColor}>{tagline}</StyledTagline>
+      
+      {/* Intégration élégante des actions après le tagline */}
+      <MediaActionsInline media={media} textColor={textColor} />
+      
+      <StyledOverview color={textColor} className="media-overview">{overview}</StyledOverview>
     </>
   )
 }

@@ -1,17 +1,17 @@
 import React from 'react'
-import { Popover, Box, Typography, Stack, Chip, Menu } from '@mui/material'
+import { Popover, Box, Typography, Stack } from '@mui/material'
 import { type MovieType } from '@/react/types'
 import dayjs from '@/utils/dayjs'
 import MediaRating from '@/react/application/components/MediaRating'
 import MediaImage from '@/react/application/components/MediaImage/MediaImage'
 
-interface MoviePopoverProps {
+interface MediaPopoverProps {
   movie: MovieType
   anchorEl: HTMLElement | null
   onClose: () => void
 }
 
-const MoviePopover = ({ movie, anchorEl, onClose }: MoviePopoverProps): JSX.Element => {
+const MediaPopover = ({ movie, anchorEl, onClose }: MediaPopoverProps): JSX.Element => {
   const open = Boolean(anchorEl)
 
   return (
@@ -73,4 +73,4 @@ const MoviePopover = ({ movie, anchorEl, onClose }: MoviePopoverProps): JSX.Elem
   )
 }
 
-export default MoviePopover
+export default MediaPopover

@@ -18,7 +18,7 @@ interface MediaWatchProvidersProps {
 
 const MediaWatchProviders: React.FC<MediaWatchProvidersProps> = props => {
   const { providers } = props
-
+  console.log(providers?.flatrate)
   const { t } = useI18n()
   return (
       <Box
@@ -60,7 +60,6 @@ const MediaWatchProviders: React.FC<MediaWatchProvidersProps> = props => {
        ))}
        </Grid>
       </Box>
-
         : (<Box
         sx={{
           borderBottom: '1px solid #ccc',

@@ -1,6 +1,5 @@
 import useI18n from '@/utils/useI18n'
 import React, { useRef } from 'react'
-import MuiDivider from '@components/MuiComponents/MuiDivider'
 import { gql, useQuery } from '@apollo/client'
 import { MOVIE_FRAGMENT } from '@/utils/fragments'
 import { CircularProgress, Stack } from '@mui/material'

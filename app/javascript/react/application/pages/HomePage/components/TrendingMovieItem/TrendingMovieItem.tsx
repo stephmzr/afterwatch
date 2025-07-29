@@ -4,7 +4,7 @@ import React, { useCallback, useState, useEffect } from 'react'
 import './TrendingMovieItem.sass'
 import { Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import MoviePopover from './MoviePopover'
+import MoviePopover from '../MediaPopover/MediaPopover'
 import { debounce } from 'lodash'
 
 interface TrendingMovieItemProps {

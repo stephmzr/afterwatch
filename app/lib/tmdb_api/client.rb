@@ -4,6 +4,7 @@ require_relative 'config'
 module TmdbApi
   class Client
     include HTTParty
+    default_timeout 5
 
     attr_accessor :language
 

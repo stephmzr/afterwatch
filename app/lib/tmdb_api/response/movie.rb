@@ -11,10 +11,6 @@ module TmdbApi
       # def runtime
       #   self['runtime']
       # end
-      
-      # def release_year
-      #   Date.parse(self['release_date']).year if self['release_date']
-      # end
     end
   end
 end

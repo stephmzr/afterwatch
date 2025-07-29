@@ -3,10 +3,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.1'
+ruby '3.3.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 7.0.0'
+gem 'rails', '~> 7.1.3'
 gem 'rails_12factor'
 gem 'rails-i18n'
 
@@ -77,7 +77,6 @@ gem 'roo'
 
 gem 'ntq_excelsior'
 
-gem 'ntq_tools'
 gem 'react_on_rails', '13.0.1'
 gem 'vite_rails'
 
@@ -87,7 +86,6 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'mini_racer', platforms: :ruby
   gem 'rspec-rails', '~> 5.0.0'
 end
 

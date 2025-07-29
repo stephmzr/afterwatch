@@ -61,6 +61,7 @@ fr:
     environment_banner: Vous êtes actuellement sur l'environnement de %{environment}
     forgotten_password: Mot de passe oublié ?
     no_movies_found: Aucun film trouvé
+    no_results_found: Aucun résultat trouvé
     reset_filters: Réinitialiser les filtres
     search_movie: Rechercher un film
   words:

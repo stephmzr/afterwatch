@@ -16,7 +16,7 @@ module TmdbApi
         return @credits if defined?(@credits)
 
         credits_response = fetch_credits
-        return nil if credits_response.body.nil?
+        return nil if credits_response.body.blank?
 
         @credits = build_credits(credits_response)
       end
@@ -32,7 +32,10 @@ module TmdbApi
       def watch_providers
         return @watch_providers if defined?(@watch_providers)
 
-        @watch_providers = fetch_watch_providers
+        watch_providers_response = fetch_watch_providers
+        return nil if watch_providers_response.body.blank? || watch_providers_response.body.empty?
+
+        @watch_providers = watch_providers_response
       end
 
       private
@@ -74,11 +77,6 @@ module TmdbApi
         Rails.logger.error("Failed to fetch watch providers for #{media_type} ID #{id}: #{e.message}")
         nil
       end
-
-      # Méthode qui retourne le type de média
-      def media_type
-        @media_type || raise(NotImplementedError, 'media_type not set')
-      end
     end
   end
-end 
+end

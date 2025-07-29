@@ -1,17 +1,17 @@
 module Types
   class UserRatingType < Types::BaseObject
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :id, ID, null: false
-    field :user, Types::Users::UserType, null: false
-    field :tmdb_id, ID, null: false
     field :media_type, String, null: false
     field :rating, Int, null: false
     field :review, String, null: true
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :tmdb_id, ID, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :user, Types::Users::UserType, null: false
 
     # Media information (fetched from TMDB)
     field :media, Types::Medias::MediaType, null: true do
-      description "The media information fetched from TMDB"
+      description 'The media information fetched from TMDB'
     end
 
     def media
@@ -25,9 +25,9 @@ module Types
         response.media_type = 'tv'
         response
       end
-    rescue => e
+    rescue StandardError => e
       Rails.logger.error "Error fetching media for rating: #{e.message}"
       nil
     end
   end
-end 
+end

@@ -1,19 +1,24 @@
 module Mutations
   module Users
     class RateMedia < BaseMutation
-      argument :tmdb_id, ID, required: true
       argument :media_type, String, required: true
       argument :rating, Int, required: true
       argument :review, String, required: false
+      argument :tmdb_id, ID, required: true
 
-      field :user_rating, Types::UserRatingType, null: true
       field :activity, Types::ActivityType, null: true
       field :errors, [String], null: false
+      field :user_rating, Types::UserRatingType, null: true
+
+      def authorized?(tmdb_id:, media_type:, rating:, review: nil)
+        false unless context[:current_user]
+
+        true
+      end
 
       def resolve(tmdb_id:, media_type:, rating:, review: nil)
         return { errors: ['User not authenticated'] } unless context[:current_user]
 
-        # Validate rating
         unless rating.between?(1, 10)
           return {
             user_rating: nil,
@@ -25,18 +30,18 @@ module Mutations
         begin
           result = UserActivityService.rate_media(
             user: context[:current_user],
-            tmdb_id: tmdb_id,
-            media_type: media_type,
-            rating: rating,
-            review: review
+            tmdb_id:,
+            media_type:,
+            rating:,
+            review:
           )
 
           {
             user_rating: result,
-            activity: Activity.where(user: context[:current_user], tmdb_id: tmdb_id, media_type: media_type).last,
+            activity: Activity.where(user: context[:current_user], tmdb_id:, media_type:).last,
             errors: []
           }
-        rescue => e
+        rescue StandardError => e
           {
             user_rating: nil,
             activity: nil,
@@ -46,4 +51,4 @@ module Mutations
       end
     end
   end
-end 
+end

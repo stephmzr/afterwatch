@@ -40,7 +40,7 @@ module TmdbApi
         return nil if id.nil?
 
         id_int = id.to_i
-        raise ArgumentError, 'Actor ID must be positive' unless id_int > 0
+        raise ArgumentError, 'Actor ID must be positive' unless id_int.positive?
 
         id_int
       end

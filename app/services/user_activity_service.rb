@@ -45,7 +45,7 @@ class UserActivityService
       ActiveRecord::Base.transaction do
         # Remove from watchlist if present (since rating implies watching)
         watchlist = UserWatchlist.find_by(user:, tmdb_id:, media_type:)
-        watchlist.destroy! if watchlist
+        watchlist&.destroy!
 
         # Create or update the rating
         user_rating = UserRating.find_or_initialize_by(
@@ -57,6 +57,8 @@ class UserActivityService
         is_new_rating = user_rating.new_record?
         user_rating.update!(rating:, review:)
 
+        next unless is_new_rating
+
         # Create the rating activity
         Activity.create!(
           user:,
@@ -66,7 +68,7 @@ class UserActivityService
           metadata: {
             rating:,
             review:,
-            action: is_new_rating ? 'rated' : 'updated_rating'
+            action: 'rated'
           }
         )
 

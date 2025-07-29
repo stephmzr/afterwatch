@@ -35,4 +35,26 @@ class Activity < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     %w[user]
   end
+
+  def action_text
+    case activity_type
+    when 'rating'
+      rating = metadata&.dig('rating')
+      action = metadata&.dig('action')
+      case action
+      when 'rated'
+        "a noté #{rating}/10"
+      when 'updated_rating'
+        "a modifié sa note à #{rating}/10"
+      end
+    when 'watchlist'
+      action = metadata&.dig('action')
+      case action
+      when 'added'
+        'a ajouté à sa watchlist'
+      when 'removed'
+        'a retiré de sa watchlist'
+      end
+    end
+  end
 end 

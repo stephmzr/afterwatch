@@ -49,20 +49,23 @@ module TmdbApi
 
       def extract_and_validate_id(id)
         return nil if id.nil?
-        
+
         id_int = id.to_i
         raise ArgumentError, 'Crew member ID must be positive' unless id_int > 0
+
         id_int
       end
 
       def extract_and_validate_name(name)
         cleaned_name = name&.strip
         raise ArgumentError, 'Crew member name is required' if cleaned_name.blank?
+
         cleaned_name
       end
 
       def normalize_profile_path(path)
         return nil if path.blank?
+
         path.start_with?('/') ? path : "/#{path}"
       end
 

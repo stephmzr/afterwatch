@@ -15,7 +15,6 @@ export interface UserType {
   createdAt: Date
   currentSignInAt?: Date
   lastRequestAt?: Date
-  versionsToArray: VersionType[]
 }
 
 export interface PaginationType {
@@ -30,13 +29,6 @@ export interface AuthorizationField {
   canEdit: boolean
   canShow: boolean
   canUpdate: boolean
-}
-
-export interface VersionType {
-  changes: string[]
-  createdAt: Date
-  event: string
-  user: UserType
 }
 
 // Define a base interface for shared properties
