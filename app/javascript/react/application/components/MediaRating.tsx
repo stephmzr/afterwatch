@@ -1,4 +1,4 @@
-import { Paper, styled } from '@mui/material'
+import { Paper } from '@mui/material'
 import React from 'react'
 import { round } from 'lodash'
 
@@ -59,7 +59,7 @@ const MediaRating = ({
   size = 'medium',
   margin,
   customSize
-}: MediaRatingProps): JSX.Element => {
+}: MediaRatingProps): JSX.Element | null => {
   const roundedRating = round(rating, 1)
   const sizeConfig = SIZES[size]
 
@@ -67,6 +67,8 @@ const MediaRating = ({
   const finalHeight = customSize?.height ?? sizeConfig.height
   const finalWidth = customSize?.width ?? sizeConfig.width
   const finalFontSize = customSize?.fontSize ?? sizeConfig.fontSize
+
+  if (roundedRating === 0) return null
 
   return (
     <Paper

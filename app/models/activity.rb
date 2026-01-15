@@ -17,16 +17,17 @@ class Activity < ApplicationRecord
   include AuditableConcern
 
   belongs_to :user
-  
-  serialize :metadata, JSON
+
+  serialize :metadata, coder: JSON
 
   validates :activity_type, presence: true, inclusion: { in: %w[rating watchlist] }
   validates :tmdb_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :media_type, presence: true, inclusion: { in: %w[movie tv] }
+  validate :cannot_add_to_watchlist_while_rated
 
   scope :recent, -> { order(created_at: :desc) }
   scope :by_type, ->(type) { where(activity_type: type) }
-  scope :by_media_type, ->(media_type) { where(media_type: media_type) }
+  scope :by_media_type, ->(media_type) { where(media_type:) }
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[activity_type tmdb_id media_type created_at]
@@ -34,6 +35,10 @@ class Activity < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user]
+  end
+
+  def cannot_add_to_watchlist_while_rated
+    errors.add(:base, 'Cannot add to watchlist while rated') if activity_type == 'watchlist' && user.user_ratings.exists?(tmdb_id:, media_type:)
   end
 
   def action_text
